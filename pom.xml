@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -25,39 +24,6 @@
             <scope>provided</scope>
         </dependency>
 
-=======
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.wj</groupId>
-    <artifactId>sql-web</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-
-    <name>sql-web Maven Webapp</name>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-
-    <dependencies>
-        <!--可以添加将Tomcat添加到代码中-->
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>9.0.36</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <version>9.0.36</version>
-        </dependency>
->>>>>>> a1ae46f334faf05868c3fd2fcb494a93117a8394
         <!--IoC容器-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -82,8 +48,6 @@
             <artifactId>hsqldb</artifactId>
             <version>2.5.0</version>
         </dependency>
-<<<<<<< HEAD
-
     </dependencies>
 
     <build>
@@ -94,13 +58,6 @@
                 <version>3.3.0</version>
             </plugin>
         </plugins>
-    </build>
-</project>
-=======
-    </dependencies>
-
-    <build>
         <finalName>sql-web</finalName>
     </build>
 </project>
->>>>>>> a1ae46f334faf05868c3fd2fcb494a93117a8394
