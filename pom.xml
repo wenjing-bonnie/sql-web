@@ -48,6 +48,17 @@
             <artifactId>hsqldb</artifactId>
             <version>2.5.0</version>
         </dependency>
+        <!-- 与jsp中的C标签相关的依赖-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
     </dependencies>
 
     <build>

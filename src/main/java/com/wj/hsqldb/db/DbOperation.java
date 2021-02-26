@@ -3,6 +3,7 @@ package com.wj.hsqldb.db;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,7 +15,7 @@ import java.sql.Statement;
 @Component
 public class DbOperation {
     @Autowired
-    JdbcConfiguration configuration;
+    public JdbcConfiguration jdbcConfiguration;
 
     /**
      * 创建表
@@ -23,7 +24,7 @@ public class DbOperation {
      * @return
      */
     public int createTable(String sql) {
-        Statement statement = configuration.createStatement();
+        Statement statement = jdbcConfiguration.createStatement();
         try {
             int result = statement.executeUpdate(sql);
             System.out.println(String.format("创建表的结果为 %d", result));
@@ -43,7 +44,7 @@ public class DbOperation {
      * @return
      */
     public ResultSet query(String sql) {
-        Statement statement = configuration.createStatement();
+        Statement statement = jdbcConfiguration.createStatement();
         try {
             ResultSet set = statement.executeQuery(sql);
             return set;
@@ -60,7 +61,7 @@ public class DbOperation {
      * @return
      */
     public int insert(String sql) {
-        Statement statement = configuration.createStatement();
+        Statement statement = jdbcConfiguration.createStatement();
         try {
             int set = statement.executeUpdate(sql);
             return set;
@@ -68,6 +69,10 @@ public class DbOperation {
             throwables.printStackTrace();
         }
         return -1;
+    }
+
+    public void closeTable() {
+        jdbcConfiguration.closeConnection();
     }
 
 }

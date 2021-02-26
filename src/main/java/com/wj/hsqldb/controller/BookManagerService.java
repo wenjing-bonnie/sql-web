@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,15 +22,17 @@ import java.util.List;
 @Component
 public class BookManagerService {
     @Autowired
-    DbOperation operation;
+    public DbOperation dbOperation;
 
     @Value("#{jdbcConfiguration.jdbcTable}")
     private String jdbcTable;
 
+    @PostConstruct
     public void createBookTable() {
+        System.out.println("BookManagerService初始化自动创建表!!!");
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +
                 "(id INTEGER PRIMARY KEY , name VARCHAR(50) NOT NULL, price DOUBLE, online DATE)", jdbcTable);
-        int result = operation.createTable(sql);
+        int result = dbOperation.createTable(sql);
         System.out.println(String.format("创建 %s 表的结果为 %d", jdbcTable, result));
     }
 
@@ -37,7 +41,7 @@ public class BookManagerService {
         String querySQL = String.format("SELECT *FROM %s", jdbcTable);
         int count = 0;
         try {
-            ResultSet set = operation.query(querySQL);
+            ResultSet set = dbOperation.query(querySQL);
             count = set == null ? 0 : set.getRow();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -48,7 +52,7 @@ public class BookManagerService {
         String sql = String.format("INSERT INTO %s \n" +
                 "(id, name, price, online)\n" +
                 "VALUES (%d , '%s', %f,'%s' )", jdbcTable, id, book.name, book.price, book.online);
-        int result = operation.insert(sql);
+        int result = dbOperation.insert(sql);
 
         System.out.println(String.format("%s已经成功加入数据库,目前数据库总共有%d条数据 ", book.name, result));
         return result;
@@ -57,7 +61,7 @@ public class BookManagerService {
     public List<Book> getBook() {
         List<Book> books = new ArrayList<>();
         String sql = String.format("SELECT * FROM %s ", jdbcTable);
-        ResultSet set = operation.query(sql);
+        ResultSet set = dbOperation.query(sql);
         if (set == null) {
             return books;
         }
@@ -74,5 +78,11 @@ public class BookManagerService {
             e.printStackTrace();
         }
         return books;
+    }
+
+    @PreDestroy
+    public void closeBookTable() {
+        System.out.println("BookManagerService初始化自动关闭表!!!");
+        dbOperation.closeTable();
     }
 }
