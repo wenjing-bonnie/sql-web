@@ -13,7 +13,7 @@ import java.io.IOException;
  * Created by wenjing.liu on 2021/2/25 in J1.
  *
  */
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
+@WebServlet(name = "BookListServlet", value = "/booklist")
 public class BookListController extends HttpServlet {
     @Autowired
     BookManagerService bookManagerService;

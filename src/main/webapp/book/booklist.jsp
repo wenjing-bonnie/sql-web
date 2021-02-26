@@ -11,27 +11,27 @@
     <title>图书列表</title>
 </head>
 <body>
-<%--<table width="80%" border="1" align="center">--%>
+<table width="80%" border="1" align="center">
 
-<%--    <tr>--%>
-<%--        <th>Book id:</th>--%>
-<%--        <th>Book name:</th>--%>
-<%--        <th>Book price:</th>--%>
-<%--        <th>Book online:</th>--%>
-<%--    </tr>--%>
-<%--    <%--%>
-<%--        List books = (List) request.getAttribute("book");--%>
-<%--    %>--%>
+    <tr>
+        <th>Book id:</th>
+        <th>Book name:</th>
+        <th>Book price:</th>
+        <th>Book online:</th>
+    </tr>
+    <%
+        List books = (List) request.getAttribute("book");
+    %>
 
-<%--    <c:forEach item="books" var="book">--%>
-<%--        <tr>--%>
-<%--            <th>${book.id}</th>--%>
-<%--            <th>${book.name}</th>--%>
-<%--            <th>${book.price}</th>--%>
-<%--            <th>${book.online}</th>--%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
+    <c:forEach item="books" var="book">
+        <tr>
+            <th>${book.id}</th>
+            <th>${book.name}</th>
+            <th>${book.price}</th>
+            <th>${book.online}</th>
+        </tr>
+    </c:forEach>
 
-<%--</table>--%>
+</table>
 </body>
 </html>
