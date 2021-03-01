@@ -27,13 +27,18 @@ public class BookManagerService {
     @Value("#{jdbcConfiguration.jdbcTable}")
     private String jdbcTable;
 
+    public void setDbOperation(DbOperation operation) {
+        this.dbOperation = operation;
+    }
+
     @PostConstruct
     public void createBookTable() {
         System.out.println("BookManagerService初始化自动创建表!!!");
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +
                 "(id INTEGER PRIMARY KEY , name VARCHAR(50) NOT NULL, price DOUBLE, online DATE)", jdbcTable);
         int result = dbOperation.createTable(sql);
-        System.out.println(String.format("创建 %s 表的结果为 %d", jdbcTable, result));
+        System.out.println("BookManagerService初始化成功");
+        System.out.println(String.format("BookManagerService 创建 %s 表的结果为 %d", jdbcTable, result));
     }
 
     public int addBook(Book book) {

@@ -30,6 +30,12 @@
             <artifactId>spring-context</artifactId>
             <version>5.2.6.RELEASE</version>
         </dependency>
+        <!--使用里面的一些帮助类如SpringBeanAutowiringSupport -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.2.6.RELEASE</version>
+        </dependency>
         <!--通过注解标记不同类的功能，让IoC容器管理对应的对象-->
         <dependency>
             <groupId>javax.annotation</groupId>
@@ -59,6 +65,7 @@
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
+
     </dependencies>
 
     <build>

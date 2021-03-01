@@ -31,6 +31,7 @@ public class JdbcConfiguration {
     @PostConstruct
     public void init(){
         System.out.println("创建Jdbc 。。。。。。 ");
+
     }
 
     public Statement createStatement() {

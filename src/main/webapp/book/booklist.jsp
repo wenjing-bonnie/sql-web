@@ -10,7 +10,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
-<%@ page isELIgnored="false" %>
 
 <html>
 <head>
@@ -22,9 +21,6 @@
     List books = (List) request.getAttribute("book");
     boolean isEmpty = books.isEmpty();
     String display = isEmpty ? "none" : "block"; //display: ${display}
-    String test = "232";
-    Book ss;
-
 %>
 <table width="50%" border="1px" align="center" style="margin-top: 50px;" title="${display}">
 
@@ -34,11 +30,7 @@
         <th>Book price:</th>
         <th>Book online:</th>
     </tr>
-    <tr>
-        <th>${3+2}</th>
-        <th>${requestScope.book.size()} </th>
-        <th><%= display%></th>
-    </tr>
+
 <%--    使用el的条件：如果用的servlet-api.jar包低于javax.servlet-api-3.0.1版本，web版本必须是3.0之前的。--%>
     <c:forEach items="${book}" var="it" >
 

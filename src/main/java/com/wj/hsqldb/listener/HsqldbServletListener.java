@@ -1,13 +1,7 @@
 package com.wj.hsqldb.listener;
 
-import com.wj.hsqldb.controller.BookManagerService;
-import com.wj.hsqldb.db.DbOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -22,13 +16,13 @@ public class HsqldbServletListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("HsqldbServletListener context Initialized!!! ");
+        //System.out.println("HsqldbServletListener context Initialized!!! ");
        // bookManagerService.createBookTable();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("HsqldbServletListener context Destroyed!!! ");
+        //System.out.println("HsqldbServletListener context Destroyed!!! ");
        // bookManagerService.closeBookTable();
     }
 }
