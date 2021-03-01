@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 /**
  * Created by wenjing.liu on 2021/2/25 in J1.
@@ -18,19 +19,22 @@ import java.sql.Statement;
 @PropertySource("config/jdbc.properties")
 public class JdbcConfiguration {
     @Value("${jdbc.url}")
-    public String jdbcUrl;
+    public String jdbcUrl = "jdbc:hsqldb:file:db/hsqldb/xbook";
     @Value("${jdbc.user}")
-    public String jdbcUser;
+    public String jdbcUser = "SA";
     @Value("${jdbc.password}")
-    public String jdbcPassword;
+    public String jdbcPassword = "";
     @Value("${jdbc.table}")
-    public String jdbcTable;
+    public String jdbcTable = "book";
 
     public Connection connection;
 
     @PostConstruct
     public void init(){
         System.out.println("创建Jdbc 。。。。。。 ");
+
+        String path = "classpath:config/jdbc.properties";
+        Properties properties = new Properties();
 
     }
 

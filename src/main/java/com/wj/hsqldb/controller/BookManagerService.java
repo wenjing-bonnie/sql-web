@@ -25,7 +25,7 @@ public class BookManagerService {
     public DbOperation dbOperation;
 
     @Value("#{jdbcConfiguration.jdbcTable}")
-    private String jdbcTable;
+    private String jdbcTable = "book";
 
     public void setDbOperation(DbOperation operation) {
         this.dbOperation = operation;
