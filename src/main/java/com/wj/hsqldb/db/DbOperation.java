@@ -17,9 +17,6 @@ public class DbOperation {
     @Autowired
     public JdbcConfiguration jdbcConfiguration;
 
-    public void setJdbcConfiguration(JdbcConfiguration configuration) {
-        this.jdbcConfiguration = configuration;
-    }
 
     /**
      * 创建表
