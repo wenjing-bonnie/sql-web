@@ -33,9 +33,6 @@ public class JdbcConfiguration {
     public void init(){
         System.out.println("创建Jdbc 。。。。。。 ");
 
-        String path = "classpath:config/jdbc.properties";
-        Properties properties = new Properties();
-
     }
 
     public Statement createStatement() {

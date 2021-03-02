@@ -25,7 +25,8 @@ public class BookManagerService {
     public DbOperation dbOperation;
 
     @Value("#{jdbcConfiguration.jdbcTable}")
-    private String jdbcTable = "book";
+    private String jdbcTable;
+
 
     public void setDbOperation(DbOperation operation) {
         this.dbOperation = operation;
@@ -34,6 +35,7 @@ public class BookManagerService {
     @PostConstruct
     public void createBookTable() {
         System.out.println("BookManagerService初始化自动创建表!!!");
+        jdbcTable = dbOperation.jdbcConfiguration.jdbcTable;
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +
                 "(id INTEGER PRIMARY KEY , name VARCHAR(50) NOT NULL, price DOUBLE, online DATE)", jdbcTable);
         int result = dbOperation.createTable(sql);
