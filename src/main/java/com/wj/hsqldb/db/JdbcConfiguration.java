@@ -16,16 +16,16 @@ import java.util.Properties;
  * 创建了HSQLDB数据库的配置类，用来读取jdbc.properties中的配置信息以及得到一个读写数据库的Statement
  */
 @Configuration
-@PropertySource("config/jdbc.properties")
+@PropertySource("classpath:/config/jdbc.properties")
 public class JdbcConfiguration {
     @Value("${jdbc.url}")
-    public String jdbcUrl = "jdbc:hsqldb:file:db/hsqldb/xbook";
+    public String jdbcUrl ; //= "jdbc:hsqldb:file:db/hsqldb/xbook";
     @Value("${jdbc.user}")
-    public String jdbcUser = "SA";
+    public String jdbcUser;// = "SA";
     @Value("${jdbc.password}")
-    public String jdbcPassword = "";
+    public String jdbcPassword;// = "";
     @Value("${jdbc.table}")
-    public String jdbcTable = "book";
+    public String jdbcTable;// = "book";
 
     public Connection connection;
 

@@ -1,4 +1,4 @@
-package com.wj.hsqldb.controller;
+package com.wj.hsqldb.controller.base;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;

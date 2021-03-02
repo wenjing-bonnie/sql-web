@@ -19,7 +19,6 @@ public class BookManagerDbTest {
         testDb();
     }
 
-
     /**
      * 用来测试读写数据库的正确性
      */

@@ -28,38 +28,34 @@ public class BookManagerService {
     private String jdbcTable;
 
 
-    public void setDbOperation(DbOperation operation) {
-        this.dbOperation = operation;
-    }
-
     @PostConstruct
     public void createBookTable() {
-        System.out.println("BookManagerService初始化自动创建表!!!");
-        jdbcTable = dbOperation.jdbcConfiguration.jdbcTable;
+        System.out.println("BookManagerService 初始化 自动创建表!!!");
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +
                 "(id INTEGER PRIMARY KEY , name VARCHAR(50) NOT NULL, price DOUBLE, online DATE)", jdbcTable);
         int result = dbOperation.createTable(sql);
-        System.out.println("BookManagerService初始化成功");
         System.out.println(String.format("BookManagerService 创建 %s 表的结果为 %d", jdbcTable, result));
     }
 
     public int addBook(Book book) {
         //  因为暂时不知道让id自加1,所以用这种笨方法先记录下
-        String querySQL = String.format("SELECT *FROM %s", jdbcTable);
+        String sql = String.format("SELECT * FROM %s ", jdbcTable);
         int count = 0;
         try {
-            ResultSet set = dbOperation.query(querySQL);
-            count = set == null ? 0 : set.getRow();
+            ResultSet set = dbOperation.query(sql);
+            while (set.next()) {
+                count++;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        //新数据的id
-        int id = count <= 0 ? 1 : count;
+        //在总行数的基础上在加1，得到新数据的id
+        int id = count + 1;
         // 插入新的数据
-        String sql = String.format("INSERT INTO %s \n" +
+        String insert = String.format("INSERT INTO %s \n" +
                 "(id, name, price, online)\n" +
                 "VALUES (%d , '%s', %f,'%s' )", jdbcTable, id, book.name, book.price, book.online);
-        int result = dbOperation.insert(sql);
+        int result = dbOperation.insert(insert);
 
         System.out.println(String.format("%s已经成功加入数据库,目前数据库总共有%d条数据 ", book.name, result));
         return result;
@@ -80,7 +76,9 @@ public class BookManagerService {
                 book.price = set.getFloat(3);
                 book.online = set.getDate(4).toString();
                 System.out.println("查询的数据为：" + book.toString());
+                books.add(book);
             }
+            return books;
         } catch (SQLException e) {
             e.printStackTrace();
         }

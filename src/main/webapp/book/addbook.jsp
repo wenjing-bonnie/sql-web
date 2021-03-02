@@ -12,5 +12,23 @@
 </head>
 <body>
 
+<form action="/addbook" method="get">
+    <div>
+        <label>请输入图书名：</label>
+        <input type="text" name="name">
+    </div>
+    <div>
+        <label>请输入图书价格：</label>
+        <input type="number" step="0.01" name="price">
+    </div>
+
+    <div>
+        <label>请输入图书上架时间：</label>
+        <input type="date" name="online">
+    </div>
+    <div>
+        <input type="submit" value="保存">
+    </div>
+</form>
 </body>
 </html>
