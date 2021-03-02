@@ -1,5 +1,8 @@
-package com.wj.hsqldb;
+package com.wj.hsqldb.listener;
 
+import com.wj.hsqldb.controller.BookManagerService;
+import com.wj.hsqldb.db.JdbcConfiguration;
+import com.wj.hsqldb.model.Book;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,7 +25,8 @@ public class SpringContextListener implements ServletContextListener {
         System.out.println("SpringContextListener context Initialized!!! ");
         // bookManagerService.createBookTable();
         //初始化所有的@Component的类
-        new AnnotationConfigApplicationContext(SpringContextListener.class);
+        //new AnnotationConfigApplicationContext(SpringContextListener.class);
+        testDb();
     }
 
 
@@ -30,5 +34,22 @@ public class SpringContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         System.out.println("SpringContextListener context Destroyed!!! ");
         // bookManagerService.closeBookTable();
+    }
+
+    /**
+     * 用来测试读写数据库的正确性
+     */
+    public static void testDb() {
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringContextListener.class);
+        JdbcConfiguration configuration = context.getBean(JdbcConfiguration.class);
+        configuration.createStatement();
+        BookManagerService service = context.getBean(BookManagerService.class);
+        service.createBookTable();
+        Book book = new Book();
+        book.name = "headfirst";
+        book.price = 29.9f;
+        book.online = "2020-1-2";
+        service.addBook(book);
+        service.getBook();
     }
 }
