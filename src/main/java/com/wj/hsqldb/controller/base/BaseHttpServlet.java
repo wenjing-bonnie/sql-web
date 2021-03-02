@@ -20,7 +20,7 @@ public class BaseHttpServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         ServletContext application = this.getServletContext();
-        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,application);
+        //SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,application);
         System.out.println("Servlet init config ........");
     }
 }
