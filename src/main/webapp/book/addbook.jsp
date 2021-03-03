@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form action="/addbook" method="get">
+<form action="${pageContext.request.contextPath}/addbook" method="get">
     <div>
         <label>请输入图书名：</label>
         <input type="text" name="name">

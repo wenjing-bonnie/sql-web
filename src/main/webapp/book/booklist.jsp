@@ -21,8 +21,9 @@
     List books = (List) request.getAttribute("book");
     boolean isEmpty = books.isEmpty();
     String display = isEmpty ? "none" : "block"; //display: ${display}
-%>
 
+%>
+<label>contextPath:${pageContext.request.contextPath}</label>
 
 <table width="50%" border="1px" style="margin-top: 50px;" title="${display}">
 
@@ -33,7 +34,6 @@
         <th>Book online</th>
     </tr>
 
-    <%--    使用el的条件：如果用的servlet-api.jar包低于javax.servlet-api-3.0.1版本，web版本必须是3.0之前的。--%>
     <c:forEach items="${book}" var="it">
 
         <tr style="color: red;alignment: center">

@@ -7,15 +7,15 @@
 
     <display-name>Sql-Web</display-name>
     <!--这种处理方式是错误的-->
-    <!--    <listener>-->
-    <!--        <listener-class>com.wj.hsqldb.SpringContextListener</listener-class>-->
-    <!--    </listener>-->
+<!--        <listener>-->
+<!--            <listener-class>com.wj.hsqldb.listener.SpringContextListener</listener-class>-->
+<!--        </listener>-->
     <!--用来配置Spring的配置文件-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:config/application-context.xml</param-value>
     </context-param>
-    <!--用来创建Spring的IoC容器，并完成与ServletContext的绑定-->
+<!--    用来创建Spring的IoC容器，并完成与ServletContext的绑定-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

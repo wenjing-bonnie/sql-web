@@ -22,7 +22,7 @@ public class BookManagerDbTest {
     /**
      * 用来测试读写数据库的正确性
      */
-    private static void testDb() {
+    public static void testDb() {
         ApplicationContext context = new AnnotationConfigApplicationContext(BookManagerDbTest.class);
         JdbcConfiguration configuration = context.getBean(JdbcConfiguration.class);
         configuration.createStatement();

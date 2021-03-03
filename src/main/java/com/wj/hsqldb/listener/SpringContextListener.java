@@ -17,7 +17,7 @@ import javax.servlet.ServletContextListener;
  */
 @Deprecated
 @Configuration
-@ComponentScan //扫描所在类的包以及子包，来创建@Component的类
+@ComponentScan("com") //扫描所在类的包以及子包，来创建@Component的类
 public class SpringContextListener implements ServletContextListener {
 
     @Override
@@ -25,8 +25,8 @@ public class SpringContextListener implements ServletContextListener {
         System.out.println("SpringContextListener context Initialized!!! ");
         // bookManagerService.createBookTable();
         //初始化所有的@Component的类
-        //new AnnotationConfigApplicationContext(SpringContextListener.class);
-        testDb();
+        new AnnotationConfigApplicationContext(SpringContextListener.class);
+        //testDb();
     }
 
 

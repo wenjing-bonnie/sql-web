@@ -3,31 +3,31 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-
+    <!--可通过注解配置JavaBean-->
     <context:annotation-config/>
     <context:component-scan base-package="com.wj"/>
-<!--    <bean id="book" class="com.wj.hsqldb.model.Book">-->
-<!--    </bean>-->
+    <!--    <bean id="book" class="com.wj.hsqldb.model.Book">-->
+    <!--    </bean>-->
 
-<!--    <bean id="jdbcConfiguration" class="com.wj.hsqldb.db.JdbcConfiguration">-->
+    <!--    <bean id="jdbcConfiguration" class="com.wj.hsqldb.db.JdbcConfiguration">-->
 
-<!--    </bean>-->
+    <!--    </bean>-->
 
-<!--    <bean id="dbOperation" class="com.wj.hsqldb.db.DbOperation">-->
-<!--        &lt;!&ndash;ref: 通过bean\local\parent可引用其他Bean的属性&ndash;&gt;-->
-<!--        <property name="jdbcConfiguration" ref="jdbcConfiguration"/>-->
+    <!--    <bean id="dbOperation" class="com.wj.hsqldb.db.DbOperation">-->
+    <!--        &lt;!&ndash;ref: 通过bean\local\parent可引用其他Bean的属性&ndash;&gt;-->
+    <!--        <property name="jdbcConfiguration" ref="jdbcConfiguration"/>-->
 
-<!--    </bean>-->
-<!--    <bean id="bookManagerService" class="com.wj.hsqldb.controller.BookManagerService">-->
-<!--        <property name="dbOperation" ref="dbOperation"/>-->
-<!--    </bean>-->
+    <!--    </bean>-->
+    <!--    <bean id="bookManagerService" class="com.wj.hsqldb.controller.BookManagerService">-->
+    <!--        <property name="dbOperation" ref="dbOperation"/>-->
+    <!--    </bean>-->
 
-<!--    <bean id="bookListController" class="com.wj.hsqldb.controller.BookListController">-->
-<!--        <property name="bookManagerService" ref="bookManagerService"/>-->
-<!--    </bean>-->
+    <!--    <bean id="bookListController" class="com.wj.hsqldb.controller.BookListController">-->
+    <!--        <property name="bookManagerService" ref="bookManagerService"/>-->
+    <!--    </bean>-->
 
-<!--    <bean id="addBookController" class="com.wj.hsqldb.controller.AddBookController">-->
-<!--        <property name="bookManagerService" ref="bookManagerService"/>-->
-<!--    </bean>-->
+    <!--    <bean id="addBookController" class="com.wj.hsqldb.controller.AddBookController">-->
+    <!--        <property name="bookManagerService" ref="bookManagerService"/>-->
+    <!--    </bean>-->
 
 </beans>
