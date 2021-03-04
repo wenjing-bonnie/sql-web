@@ -42,12 +42,12 @@
             <artifactId>javax.annotation-api</artifactId>
             <version>1.3.2</version>
         </dependency>
-        <!--jdbc接口-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework</groupId>-->
-        <!--            <artifactId>spring-jdbc</artifactId>-->
-        <!--            <version>5.2.5.RELEASE</version>-->
-        <!--        </dependency>-->
+        <!--jdbc接口 Spring对JDBC的封装-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.2.5.RELEASE</version>
+        </dependency>
         <!--hsqldb数据库-->
         <dependency>
             <groupId>org.hsqldb</groupId>
