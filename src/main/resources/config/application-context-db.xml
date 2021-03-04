@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="classpath:config/jdbc.properties"/>
+
+    <!--简单的一个连接，每次都会新建-->
+    <bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+    </bean>
+
+    <!--数据库连接池-->
+
+    <!--配置C3P0数据源-->
+    <bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+
+        <property name="initialPoolSize" value="3"/>
+        <property name="maxPoolSize" value="6"/>
+    </bean>
+    <!--配置DBCP数据源-->
+    <bean id="dbcpDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+
+        <property name="maxActive" value="6"/>
+        <property name="maxIdle" value="3"/>
+    </bean>
+    <!--阿里的-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+    </bean>
+
+    <!--处理数据库连接的bean-->
+    <bean id="jdbcConfiguration" class="com.wj.hsqldb.datasource.JdbcTemplate">
+        <property name="c3p0DataSource" ref="c3p0DataSource"/>
+        <property name="dbcpDataSource" ref="dbcpDataSource"/>
+        <property name="driverManagerDataSource" ref="driverManagerDataSource"/>
+        <property name="druidDataSource" ref="druidDataSource"/>
+    </bean>
+
+</beans>

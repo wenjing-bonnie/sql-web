@@ -4,6 +4,8 @@ import com.wj.hsqldb.db.DbOperation;
 import com.wj.hsqldb.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +22,15 @@ import java.util.List;
  * <p>
  * 配合Servlet来完成与jsp的页面展示
  */
-@Component
+@Configuration
+@PropertySource("classpath:/config/jdbc.properties")
 public class BookManagerService {
     @Autowired
     public DbOperation dbOperation;
-
-    @Value("#{jdbcConfiguration.jdbcTable}")
-    private String jdbcTable;
+    //TODO 后面在看这里怎么优化
+    //@Value("${jdbcConfiguration.jdbcTable}")
+    @Value("${jdbc.table}")
+    private String jdbcTable = "book";
 
 
     @PostConstruct

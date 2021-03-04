@@ -5,41 +5,41 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
 /**
  * Created by wenjing.liu on 2021/2/25 in J1.
  * 创建了HSQLDB数据库的配置类，用来读取jdbc.properties中的配置信息以及得到一个读写数据库的Statement
- *
  */
+@Deprecated
 @Configuration
 @PropertySource("classpath:/config/jdbc.properties")
 public class JdbcConfiguration {
     @Value("${jdbc.url}")
-    public String jdbcUrl ; //= "jdbc:hsqldb:file:db/hsqldb/xbook";
+    private String jdbcUrl; //= "jdbc:hsqldb:file:db/hsqldb/xbook";
     @Value("${jdbc.user}")
-    public String jdbcUser;// = "SA";
+    private String jdbcUser;// = "SA";
     @Value("${jdbc.password}")
-    public String jdbcPassword;// = "";
+    private String jdbcPassword;// = "";
     @Value("${jdbc.table}")
-    public String jdbcTable;// = "book";
+    private String jdbcTable;// = "book";
+    @Value("${jdbc.driverClass}")
+    private String driverClass;
 
     public Connection connection;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         System.out.println("创建Jdbc 。。。。。。 ");
-
     }
 
+    @Deprecated
     public Statement createStatement() {
         try {
-            Class.forName("org.hsqldb.jdbcDriver");
+            Class.forName(driverClass);
         } catch (ClassNotFoundException e) {
             System.out.println("jdbcDriver not found!!!");
             return null;
@@ -59,8 +59,9 @@ public class JdbcConfiguration {
         return null;
     }
 
-    public void closeConnection(){
-        if (connection == null){
+    @Deprecated
+    public void closeConnection() {
+        if (connection == null) {
             return;
         }
         try {
