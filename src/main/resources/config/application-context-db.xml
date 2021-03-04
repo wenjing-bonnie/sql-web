@@ -46,7 +46,7 @@
     </bean>
 
     <!--处理数据库连接的bean-->
-    <bean id="jdbcConfiguration" class="com.wj.hsqldb.datasource.JdbcTemplate">
+    <bean id="jdbcConfiguration" class="com.wj.hsqldb.datasource.JdbcDataSource">
         <property name="c3p0DataSource" ref="c3p0DataSource"/>
         <property name="dbcpDataSource" ref="dbcpDataSource"/>
         <property name="driverManagerDataSource" ref="driverManagerDataSource"/>

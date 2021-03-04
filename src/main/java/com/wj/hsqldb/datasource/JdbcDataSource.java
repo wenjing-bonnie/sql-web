@@ -18,13 +18,11 @@ import java.sql.Statement;
  * 创建了HSQLDB数据库的配置类，用来读取jdbc.properties中的配置信息以及得到一个读写数据库的Statement
  */
 @Component
-public class JdbcTemplate {
-
+public class JdbcDataSource {
     private ComboPooledDataSource c3p0DataSource;
     private BasicDataSource dbcpDataSource;
     private DriverManagerDataSource driverManagerDataSource;
     private DruidDataSource druidDataSource;
-
 
     public void setC3p0DataSource(ComboPooledDataSource c3p0DataSource) {
         this.c3p0DataSource = c3p0DataSource;
@@ -66,6 +64,8 @@ public class JdbcTemplate {
     public DataSource createDruidDataSource() {
         return druidDataSource;
     }
+
+
 
 
 }
