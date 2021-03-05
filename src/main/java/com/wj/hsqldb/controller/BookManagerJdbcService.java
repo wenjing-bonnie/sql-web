@@ -21,6 +21,7 @@ import java.util.List;
  * Created by wenjing.liu on 2021/2/25 in J1.
  * <p>
  * 配合Servlet来完成与jsp的页面展示
+ * 该类通过{@link #jdbcTemplate}代替之前的{@link com.wj.hsqldb.db.DbOperation}
  */
 @Configuration
 @PropertySource("classpath:/config/jdbc.properties")

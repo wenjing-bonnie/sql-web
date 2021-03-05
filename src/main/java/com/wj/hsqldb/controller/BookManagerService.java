@@ -20,7 +20,9 @@ import java.util.List;
  * Created by wenjing.liu on 2021/2/25 in J1.
  * <p>
  * 配合Servlet来完成与jsp的页面展示
+ * 在后面的代码会替换掉该类，使用{@link BookManagerJdbcService }来代替
  */
+@Deprecated
 @Configuration
 @PropertySource("classpath:/config/jdbc.properties")
 public class BookManagerService {

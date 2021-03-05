@@ -13,6 +13,7 @@ import java.sql.Statement;
 /**
  * Created by wenjing.liu on 2021/2/25 in J1.
  * 创建了HSQLDB数据库的配置类，用来读取jdbc.properties中的配置信息以及得到一个读写数据库的Statement
+ * 该类的功能被{@link com.wj.hsqldb.datasource.JdbcDataSource} 代替
  */
 @Deprecated
 @Configuration

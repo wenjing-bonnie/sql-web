@@ -13,7 +13,6 @@ import javax.sql.DataSource;
  * 该类通过配置文件进行实例化
  * 用该类可以直接代替{@link com.wj.hsqldb.db.DbOperation}和{@link com.wj.hsqldb.db.JdbcConfiguration}
  */
-
 public class JdbcDataSource {
 
     private ComboPooledDataSource c3p0DataSource;

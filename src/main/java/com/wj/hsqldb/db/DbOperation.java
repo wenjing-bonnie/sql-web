@@ -1,5 +1,6 @@
 package com.wj.hsqldb.db;
 
+import com.wj.hsqldb.datasource.JdbcDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.sql.Statement;
 /**
  * Created by wenjing.liu on 2021/2/25 in J1.
  * 对数据库的进行增删改查的操作类
+ * 该类的功能被{@link JdbcDataSource#createJdbcTemplate()}代替
  */
 @Deprecated
 @Component
