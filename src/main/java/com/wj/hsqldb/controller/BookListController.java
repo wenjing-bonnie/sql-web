@@ -24,7 +24,7 @@ import java.util.List;
 @WebServlet(name = "BookListServlet", value = "/booklist")
 public class BookListController extends BaseHttpServlet {
     @Autowired
-    public BookManagerService bookManagerService;
+    public BookManagerJdbcService bookManagerService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

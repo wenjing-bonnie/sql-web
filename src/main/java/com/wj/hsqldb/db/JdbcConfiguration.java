@@ -36,7 +36,6 @@ public class JdbcConfiguration {
         System.out.println("创建Jdbc 。。。。。。 ");
     }
 
-    @Deprecated
     public Statement createStatement() {
         try {
             Class.forName(driverClass);
@@ -59,7 +58,6 @@ public class JdbcConfiguration {
         return null;
     }
 
-    @Deprecated
     public void closeConnection() {
         if (connection == null) {
             return;

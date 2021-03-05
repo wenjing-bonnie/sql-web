@@ -19,7 +19,7 @@ import java.io.IOException;
 public class AddBookController extends BaseHttpServlet {
 
     @Autowired
-    public BookManagerService bookManagerService;
+    public BookManagerJdbcService bookManagerService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

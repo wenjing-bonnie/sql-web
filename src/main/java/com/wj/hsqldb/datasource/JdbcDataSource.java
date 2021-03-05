@@ -3,17 +3,17 @@ package com.wj.hsqldb.datasource;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 /**
  * Created by wenjing.liu on 2021/2/25 in J1.
- * 用该类可以直接代替{@link com.wj.hsqldb.db.DbOperation}和{@link JdbcDataSource}
+ * 该类通过配置文件进行实例化
+ * 用该类可以直接代替{@link com.wj.hsqldb.db.DbOperation}和{@link com.wj.hsqldb.db.JdbcConfiguration}
  */
-@Component
+
 public class JdbcDataSource {
 
     private ComboPooledDataSource c3p0DataSource;
@@ -21,6 +21,7 @@ public class JdbcDataSource {
     private DriverManagerDataSource driverManagerDataSource;
     private DruidDataSource druidDataSource;
     private DbcpRoutingDataSource dbcpRoutingDataSource;
+    private JdbcTemplate jdbcTemplate;
 
     public void setC3p0DataSource(ComboPooledDataSource c3p0DataSource) {
         this.c3p0DataSource = c3p0DataSource;
@@ -41,13 +42,6 @@ public class JdbcDataSource {
     public void setDbcpRoutingDataSource(DbcpRoutingDataSource dbcpRoutingDataSource) {
         this.dbcpRoutingDataSource = dbcpRoutingDataSource;
     }
-
-    @PostConstruct
-    public void init() {
-        System.out.println("JdbcTemplate init  。。。。。。 ");
-
-    }
-
 
     public DataSource createComboPoolDataSource() {
         return c3p0DataSource;
@@ -70,6 +64,14 @@ public class JdbcDataSource {
     //TODO 还没有验证
     public DataSource createDbcpRoutingDataSource() {
         return dbcpRoutingDataSource;
+    }
+
+    //JdbcTemplate是Spring对JDBC的封装，目的是使JDBC更加易于使用。JdbcTemplate是Spring的一部分。JdbcTemplate处理了资源的建立和释放
+    public  JdbcTemplate createJdbcTemplate() {
+        if (jdbcTemplate == null) {
+            jdbcTemplate = new JdbcTemplate(driverManagerDataSource);
+        }
+        return jdbcTemplate;
     }
 
 

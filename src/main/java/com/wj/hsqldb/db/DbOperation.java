@@ -12,11 +12,11 @@ import java.sql.Statement;
  * Created by wenjing.liu on 2021/2/25 in J1.
  * 对数据库的进行增删改查的操作类
  */
+@Deprecated
 @Component
 public class DbOperation {
     @Autowired
     public JdbcConfiguration jdbcConfiguration;
-
 
     /**
      * 创建表
