@@ -4,7 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-
+    <!--增加数据库配置的配置文件-->
     <context:property-placeholder location="classpath:config/jdbc.properties"/>
 
     <!--简单的一个连接，每次都会新建-->
@@ -45,6 +45,29 @@
         <property name="driverClassName" value="${jdbc.driverClass}"/>
     </bean>
 
+
+    <!-- 多数据源 在配置一个DBCP-->
+    <bean id="dbcpDataSourceCart" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="username" value="${jdbc.user.cart}"/>
+        <property name="password" value="${jdbc.password.cart}"/>
+        <property name="url" value="${jdbc.url.cart}"/>
+        <property name="driverClassName" value="${jdbc.driverClass.cart}"/>
+
+        <property name="maxActive" value="6"/>
+        <property name="maxIdle" value="3"/>
+    </bean>
+
+    <!--声明多数据源管理的DbcpRoutingDataSource-->
+    <bean id="dbcpRoutingDataSource" class="com.wj.hsqldb.datasource.DbcpRoutingDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry value-ref="dbcpDataSource" key="dbcpDataSource"/>
+                <entry value-ref="dbcpDataSourceCart" key="dbcpDataSourceCart"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dbcpDataSource"/>
+    </bean>
+
     <!--处理数据库连接的bean-->
     <bean id="jdbcConfiguration" class="com.wj.hsqldb.datasource.JdbcDataSource">
         <property name="c3p0DataSource" ref="c3p0DataSource"/>
@@ -52,5 +75,6 @@
         <property name="driverManagerDataSource" ref="driverManagerDataSource"/>
         <property name="druidDataSource" ref="druidDataSource"/>
     </bean>
+
 
 </beans>
