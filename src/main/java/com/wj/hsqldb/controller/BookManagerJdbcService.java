@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.PostConstruct;
@@ -26,7 +27,7 @@ import java.util.List;
 public class BookManagerJdbcService {
     @Value("${jdbc.table}")
     private String jdbcTable = "book";
-    @Resource
+    @Resource(type = JdbcDataSource.class)
     private JdbcDataSource jdbcDataSource;
     private JdbcTemplate jdbcTemplate;
 
@@ -41,10 +42,7 @@ public class BookManagerJdbcService {
     }
 
     public int addBook(Book book) {
-        //  因为暂时不知道让id自加1,所以用这种笨方法先记录下
-        String sql = String.format("SELECT * FROM %s ", jdbcTable);
-        int count = 0;
-        List<Book> books = jdbcTemplate.queryForList(sql, Book.class);
+        List<Book> books = getBook();
         //在总行数的基础上在加1，得到新数据的id
         int id = books.size() + 1;
         // 插入新的数据
@@ -59,7 +57,7 @@ public class BookManagerJdbcService {
 
     public List<Book> getBook() {
         String sql = String.format("SELECT * FROM %s ", jdbcTable);
-        List<Book> books = jdbcTemplate.queryForList(sql, Book.class);
+        List<Book> books = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
         if (books == null) {
             return books;
         }

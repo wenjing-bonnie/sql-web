@@ -6,28 +6,4 @@
     <!--可通过注解配置JavaBean-->
     <context:annotation-config/>
     <context:component-scan base-package="com.wj"/>
-    <!--    <bean id="book" class="com.wj.hsqldb.model.Book">-->
-    <!--    </bean>-->
-
-    <!--    <bean id="jdbcConfiguration" class="com.wj.hsqldb.db.JdbcConfiguration">-->
-
-    <!--    </bean>-->
-
-    <!--    <bean id="dbOperation" class="com.wj.hsqldb.db.DbOperation">-->
-    <!--        &lt;!&ndash;ref: 通过bean\local\parent可引用其他Bean的属性&ndash;&gt;-->
-    <!--        <property name="jdbcConfiguration" ref="jdbcConfiguration"/>-->
-
-    <!--    </bean>-->
-    <!--    <bean id="bookManagerService" class="com.wj.hsqldb.controller.BookManagerService">-->
-    <!--        <property name="dbOperation" ref="dbOperation"/>-->
-    <!--    </bean>-->
-
-    <!--    <bean id="bookListController" class="com.wj.hsqldb.controller.BookListController">-->
-    <!--        <property name="bookManagerService" ref="bookManagerService"/>-->
-    <!--    </bean>-->
-
-    <!--    <bean id="addBookController" class="com.wj.hsqldb.controller.AddBookController">-->
-    <!--        <property name="bookManagerService" ref="bookManagerService"/>-->
-    <!--    </bean>-->
-
 </beans>
