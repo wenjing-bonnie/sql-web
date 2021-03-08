@@ -28,7 +28,7 @@ import java.util.List;
 public class BookManagerJdbcService {
     @Value("${jdbc.table}")
     private String jdbcTable = "book";
-    @Resource(type = JdbcDataSource.class)
+    @Resource(type = JdbcDataSource.class, name = "jdbcDataSource")
     private JdbcDataSource jdbcDataSource;
     private JdbcTemplate jdbcTemplate;
 

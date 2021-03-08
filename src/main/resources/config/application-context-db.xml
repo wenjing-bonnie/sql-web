@@ -37,6 +37,13 @@
         <property name="maxActive" value="6"/>
         <property name="maxIdle" value="3"/>
     </bean>
+    <!--配置HikariDataSource-->
+    <bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+    </bean>
     <!--阿里的-->
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="username" value="${jdbc.user}"/>
@@ -74,6 +81,7 @@
         <property name="dbcpDataSource" ref="dbcpDataSource"/>
         <property name="driverManagerDataSource" ref="driverManagerDataSource"/>
         <property name="druidDataSource" ref="druidDataSource"/>
+        <property name="hikariDataSource" ref="hikariDataSource"/>
     </bean>
 
 

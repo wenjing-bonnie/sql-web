@@ -2,6 +2,7 @@ package com.wj.hsqldb.datasource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -20,6 +21,7 @@ public class JdbcDataSource {
     private DriverManagerDataSource driverManagerDataSource;
     private DruidDataSource druidDataSource;
     private DbcpRoutingDataSource dbcpRoutingDataSource;
+    private HikariDataSource hikariDataSource;
     private JdbcTemplate jdbcTemplate;
 
     public void setC3p0DataSource(ComboPooledDataSource c3p0DataSource) {
@@ -40,6 +42,10 @@ public class JdbcDataSource {
 
     public void setDbcpRoutingDataSource(DbcpRoutingDataSource dbcpRoutingDataSource) {
         this.dbcpRoutingDataSource = dbcpRoutingDataSource;
+    }
+
+    public void setHikariDataSource(HikariDataSource hikariDataSource) {
+        this.hikariDataSource = hikariDataSource;
     }
 
     public DataSource createComboPoolDataSource() {
@@ -65,8 +71,13 @@ public class JdbcDataSource {
         return dbcpRoutingDataSource;
     }
 
+
+    public DataSource createHikariDataSource() {
+        return hikariDataSource;
+    }
+
     //JdbcTemplate是Spring对JDBC的封装，目的是使JDBC更加易于使用。JdbcTemplate是Spring的一部分。JdbcTemplate处理了资源的建立和释放
-    public  JdbcTemplate createJdbcTemplate() {
+    public JdbcTemplate createJdbcTemplate() {
         if (jdbcTemplate == null) {
             jdbcTemplate = new JdbcTemplate(driverManagerDataSource);
         }
