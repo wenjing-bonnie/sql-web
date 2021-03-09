@@ -1,16 +1,14 @@
 package com.wj.hsqldb.controller;
 
 import com.wj.hsqldb.controller.base.BaseHttpServlet;
+import com.wj.hsqldb.controller.service.BookManageTransactionTemplateService;
+import com.wj.hsqldb.controller.service.BookManagerJdbcService;
+import com.wj.hsqldb.controller.service.BookManagerPlatformTransactionService;
 import com.wj.hsqldb.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,13 +23,16 @@ import java.util.List;
 public class BookListController extends BaseHttpServlet {
     @Deprecated
     @Autowired
-    public BookManagerJdbcService bookManagerService;
+    private BookManagerJdbcService bookManagerService;
+    @Deprecated
     @Autowired
-    public BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
+    private BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
+    @Autowired
+    private BookManageTransactionTemplateService bookManageTransactionTemplateService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Book> books = bookManagerPlatformTransactionService.getBook();
+        List<Book> books = bookManageTransactionTemplateService.getBook();
         System.out.println("book size = " + books.size());
         req.setAttribute("book", books);
         req.getRequestDispatcher("/book/booklist.jsp").forward(req, resp);

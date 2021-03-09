@@ -1,12 +1,12 @@
-package com.wj.hsqldb.controller;
+package com.wj.hsqldb.controller.service;
 
+import com.wj.hsqldb.controller.service.BookManagerJdbcService;
 import com.wj.hsqldb.db.DbOperation;
 import com.wj.hsqldb.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

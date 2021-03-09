@@ -1,4 +1,4 @@
-package com.wj.hsqldb.controller;
+package com.wj.hsqldb.controller.service;
 
 import com.wj.hsqldb.model.Book;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,14 +10,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,34 +25,28 @@ import java.util.List;
  */
 @Configuration
 @PropertySource("classpath:/config/jdbc.properties")
-public class BookManagerPlatformTransactionService {
+public class BookManageTransactionTemplateService {
     @Value("${jdbc.table}")
     private String jdbcTable = "book";
     //1.从xml文件中获取DataSourceTransactionManager
     @Resource
     private DataSourceTransactionManager platformTransactionManager;
-    private TransactionStatus transactionStatus;
-    private DefaultTransactionDefinition transactionDefinition;
+    private TransactionTemplate transactionTemplate;
     private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
     public void createTransactionManager() {
         //2.定义事务的传播行为以及隔离级别
-        transactionDefinition = new DefaultTransactionDefinition();
-        transactionDefinition.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
-        transactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        //3.获取到TransactionStatus,并开启事务
-        transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
-        //4.执行业务逻辑代码
-        try {
-            createBookTableSQL(platformTransactionManager.getDataSource());
-            //5.根据业务逻辑正常，则将该次事务进行提交
-            platformTransactionManager.commit(transactionStatus);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            //6.出现了异常，则将该次事务进行回滚
-            platformTransactionManager.rollback(transactionStatus);
-        }
+        transactionTemplate = new TransactionTemplate(platformTransactionManager);
+        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        //3.调用 transactionTemplate.execute执行业务逻辑
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+                createBookTableSQL(platformTransactionManager.getDataSource());
+            }
+        });
     }
 
     /**
@@ -63,16 +56,13 @@ public class BookManagerPlatformTransactionService {
      * @return
      */
     public int addBook(Book book) {
-        //TODO 这种重新创建一个新的事务的方式不知道是不是正确，暂时先认为是正确的
-        transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
-        try {
-            platformTransactionManager.commit(transactionStatus);
-            return addBookSQL(book);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            platformTransactionManager.rollback(transactionStatus);
-        }
-        return -1;
+        int result = transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus transactionStatus) {
+                return addBookSQL(book);
+            }
+        });
+        return result;
     }
 
 
@@ -82,16 +72,13 @@ public class BookManagerPlatformTransactionService {
      * @return
      */
     public List<Book> getBook() {
-        transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
-        try {
-            List<Book> books = getBookSQL();
-            platformTransactionManager.commit(transactionStatus);
-            return books;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            platformTransactionManager.rollback(transactionStatus);
-        }
-        return new ArrayList<>();
+        List<Book> books = transactionTemplate.execute(new TransactionCallback<List<Book>>() {
+            @Override
+            public List<Book> doInTransaction(TransactionStatus transactionStatus) {
+                return getBookSQL();
+            }
+        });
+        return books;
     }
 
     /**
@@ -152,27 +139,19 @@ public class BookManagerPlatformTransactionService {
 
         //1.从xml文件中获取DataSourceTransactionManager
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:config/application-context-trans.xml");
-        DataSourceTransactionManager platformTransactionManager = applicationContext.getBean(DataSourceTransactionManager.class);
+        DataSourceTransactionManager manager = applicationContext.getBean(DataSourceTransactionManager.class);
         //2.定义事务的传播行为以及隔离级别
-        DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
-        transactionDefinition.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
-        transactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        //3.获取事务的状态，开启事务
-        TransactionStatus status = platformTransactionManager.getTransaction(transactionDefinition);
-        System.out.println("=== 开始执行事务 ===");
-        try {
-            //4.事务执行
-            insertBook(platformTransactionManager.getDataSource());
-            //5.在提交status的中绑定事务。若正常执行，则提交事务
-            platformTransactionManager.commit(status);
-            System.out.println("=== 事务执行完 ===");
-        } catch (RuntimeException e) {
-            //6.回滚，若出现异常，则回滚
-            e.printStackTrace();
-            System.out.println("=== 回滚事务 ===");
-            platformTransactionManager.rollback(status);
-        }
-        queryBook(platformTransactionManager.getDataSource());
+        TransactionTemplate transactionTemplate = new TransactionTemplate(manager);
+        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        //3.调用 transactionTemplate.execute执行业务逻辑
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+                insertBook(manager.getDataSource());
+            }
+        });
+        queryBook(manager.getDataSource());
     }
 
     /**

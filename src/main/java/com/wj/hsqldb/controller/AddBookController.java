@@ -1,6 +1,9 @@
 package com.wj.hsqldb.controller;
 
 import com.wj.hsqldb.controller.base.BaseHttpServlet;
+import com.wj.hsqldb.controller.service.BookManageTransactionTemplateService;
+import com.wj.hsqldb.controller.service.BookManagerJdbcService;
+import com.wj.hsqldb.controller.service.BookManagerPlatformTransactionService;
 import com.wj.hsqldb.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,9 +22,12 @@ import java.io.IOException;
 public class AddBookController extends BaseHttpServlet {
     @Deprecated //小白新手web开发简单总结（十二）-数据库连接的相关优化（事务管理）中替换成
     @Autowired
-    public BookManagerJdbcService bookManagerService;
+    private BookManagerJdbcService bookManagerService;
+    @Deprecated
     @Autowired
-    public BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
+    private BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
+    @Autowired
+    private BookManageTransactionTemplateService bookManageTransactionTemplateService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +42,7 @@ public class AddBookController extends BaseHttpServlet {
         book.name = name;
         book.price = Float.valueOf(price);
         book.online = online;
-        bookManagerPlatformTransactionService.addBook(book);
+        bookManageTransactionTemplateService.addBook(book);
         req.getRequestDispatcher("/booklist").forward(req, resp);
     }
 }
