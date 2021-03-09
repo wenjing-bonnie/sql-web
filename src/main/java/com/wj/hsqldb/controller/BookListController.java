@@ -23,12 +23,15 @@ import java.util.List;
 
 @WebServlet(name = "BookListServlet", value = "/booklist")
 public class BookListController extends BaseHttpServlet {
+    @Deprecated
     @Autowired
     public BookManagerJdbcService bookManagerService;
+    @Autowired
+    public BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Book> books = bookManagerService.getBook();
+        List<Book> books = bookManagerPlatformTransactionService.getBook();
         System.out.println("book size = " + books.size());
         req.setAttribute("book", books);
         req.getRequestDispatcher("/book/booklist.jsp").forward(req, resp);

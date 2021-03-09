@@ -18,7 +18,9 @@ import java.util.List;
  * <p>
  * 配合Servlet来完成与jsp的页面展示
  * 该类通过{@link #jdbcTemplate}代替之前的{@link com.wj.hsqldb.db.DbOperation}
+ * 在《小白新手web开发简单总结（十二）-数据库连接的相关优化（事务管理）》中废弃，可采用{@link BookManagerPlatformTransactionService}
  */
+@Deprecated
 @Configuration
 @PropertySource("classpath:/config/jdbc.properties")
 public class BookManagerJdbcService {

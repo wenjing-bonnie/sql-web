@@ -17,9 +17,11 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/addbook")
 public class AddBookController extends BaseHttpServlet {
-
+    @Deprecated //小白新手web开发简单总结（十二）-数据库连接的相关优化（事务管理）中替换成
     @Autowired
     public BookManagerJdbcService bookManagerService;
+    @Autowired
+    public BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,12 +36,7 @@ public class AddBookController extends BaseHttpServlet {
         book.name = name;
         book.price = Float.valueOf(price);
         book.online = online;
-        bookManagerService.addBook(book);
+        bookManagerPlatformTransactionService.addBook(book);
         req.getRequestDispatcher("/booklist").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 }
