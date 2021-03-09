@@ -2,7 +2,6 @@ package com.wj.hsqldb.controller;
 
 import com.wj.hsqldb.datasource.JdbcDataSource;
 import com.wj.hsqldb.model.Book;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -11,9 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,7 +24,7 @@ import java.util.List;
 public class BookManagerJdbcService {
     @Value("${jdbc.table}")
     private String jdbcTable = "book";
-    @Resource(type = JdbcDataSource.class, name = "jdbcDataSource")
+    @Resource
     private JdbcDataSource jdbcDataSource;
     private JdbcTemplate jdbcTemplate;
 
@@ -43,9 +39,10 @@ public class BookManagerJdbcService {
     }
 
     public int addBook(Book book) {
-        List<Book> books = getBook();
+        String sql = String.format("SELECT * FROM %s ", jdbcTable);
+        List<Book> books = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
         //在总行数的基础上在加1，得到新数据的id
-        int id = books.size() + 1;
+        int id = books == null ? 1 : books.size() + 1;
         // 插入新的数据
         String insert = String.format("INSERT INTO %s \n" +
                 "(id, name, price, online)\n" +
@@ -64,5 +61,6 @@ public class BookManagerJdbcService {
         }
         return books;
     }
+
 
 }
