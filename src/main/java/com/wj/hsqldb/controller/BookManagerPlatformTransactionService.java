@@ -29,6 +29,7 @@ import java.util.List;
 public class BookManagerPlatformTransactionService {
     @Value("${jdbc.table}")
     private String jdbcTable = "book";
+    //1.从xml文件中获取DataSourceTransactionManager
     @Resource
     private DataSourceTransactionManager platformTransactionManager;
     private TransactionStatus transactionStatus;
@@ -37,23 +38,68 @@ public class BookManagerPlatformTransactionService {
 
     @PostConstruct
     public void createTransactionManager() {
-        //1.从xml文件中获取DataSourceTransactionManager
         //2.定义事务的传播行为以及隔离级别
         transactionDefinition = new DefaultTransactionDefinition();
         transactionDefinition.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
         transactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        //3.获取到TransactionStatus,并开启事务
+        transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
+        //4.执行业务逻辑代码
+        try {
+            createBookTableSQL(platformTransactionManager.getDataSource());
+            //5.根据业务逻辑正常，则将该次事务进行提交
+            platformTransactionManager.commit(transactionStatus);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            //6.出现了异常，则将该次事务进行回滚
+            platformTransactionManager.rollback(transactionStatus);
+        }
+    }
+
+    /**
+     * 通过事务管理
+     *
+     * @param book
+     * @return
+     */
+    public int addBook(Book book) {
+        //TODO 这种重新创建一个新的事务的方式不知道是不是正确，暂时先认为是正确的
         transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
         try {
-            createBookTable(platformTransactionManager.getDataSource());
             platformTransactionManager.commit(transactionStatus);
+            return addBookSQL(book);
         } catch (RuntimeException e) {
             e.printStackTrace();
             platformTransactionManager.rollback(transactionStatus);
         }
-
+        return -1;
     }
 
-    private void createBookTable(DataSource source) {
+
+    /**
+     * 通过事务管理
+     *
+     * @return
+     */
+    public List<Book> getBook() {
+        transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
+        try {
+            List<Book> books = getBookSQL();
+            platformTransactionManager.commit(transactionStatus);
+            return books;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            platformTransactionManager.rollback(transactionStatus);
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * 原创建table的业务逻辑
+     *
+     * @param source
+     */
+    private void createBookTableSQL(DataSource source) {
         jdbcTemplate = new JdbcTemplate(source);
         System.out.println("BookManagerJdbcService 初始化 自动创建表!!!");
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +
@@ -62,43 +108,37 @@ public class BookManagerPlatformTransactionService {
         System.out.println(String.format("BookManagerJdbcService 创建 %s 表", jdbcTable));
     }
 
-    public int addBook(Book book) {
-        //TODO 这种重新创建一个新的事务的方式不知道是不是正确，暂时先认为是正确的
-        transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
-        try {
-            //1.查询
-            String query = String.format("SELECT * FROM %s ", jdbcTable);
-            List<Book> books = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Book.class));
-            //2.在总行数的基础上在加1，得到新数据的id
-            int id = books == null ? 1 : books.size() + 1;
-            //3.插入新的数据
-            String insert = String.format("INSERT INTO %s \n" +
-                    "(id, name, price, online)\n" +
-                    "VALUES (%d , '%s', %f,'%s' )", jdbcTable, id, book.name, book.price, book.online);
-            int result = jdbcTemplate.update(insert);
-            System.out.println(String.format("%s已经成功加入数据库,目前数据库总共有%d条数据 ", book.name, result));
-            platformTransactionManager.commit(transactionStatus);
-            return result;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            platformTransactionManager.rollback(transactionStatus);
-        }
-        return -1;
+
+    /**
+     * 同{@link BookManagerJdbcService#addBook(Book)}
+     *
+     * @param book
+     * @return
+     */
+    private int addBookSQL(Book book) {
+        //1.查询
+        String query = String.format("SELECT * FROM %s ", jdbcTable);
+        List<Book> books = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Book.class));
+        //2.在总行数的基础上在加1，得到新数据的id
+        int id = books == null ? 1 : books.size() + 1;
+        //3.插入新的数据
+        String insert = String.format("INSERT INTO %s \n" +
+                "(id, name, price, online)\n" +
+                "VALUES (%d , '%s', %f,'%s' )", jdbcTable, id, book.name, book.price, book.online);
+        int result = jdbcTemplate.update(insert);
+        System.out.println(String.format("%s已经成功加入数据库,目前数据库总共有%d条数据 ", book.name, result));
+        return result;
     }
 
-    public List<Book> getBook() {
-        transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
-        try {
-            String sql = String.format("SELECT * FROM %s ", jdbcTable);
-            List<Book> books = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
-            platformTransactionManager.commit(transactionStatus);
-            return books;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            platformTransactionManager.rollback(transactionStatus);
-        }
-        return new ArrayList<>();
-
+    /**
+     * 同{@link BookManagerJdbcService#getBook()}
+     *
+     * @return
+     */
+    private List<Book> getBookSQL() {
+        String sql = String.format("SELECT * FROM %s ", jdbcTable);
+        List<Book> books = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
+        return books;
     }
 
     public static void main(String[] args) {
