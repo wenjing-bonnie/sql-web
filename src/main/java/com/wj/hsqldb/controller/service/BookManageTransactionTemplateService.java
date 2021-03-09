@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Created by wenjing.liu on 2021/3/9 in J1.
- * 通过PlatformTransactionManager来处理事务
+ * 通过TransactionTemplate来处理事务
  */
 @Configuration
 @PropertySource("classpath:/config/jdbc.properties")
