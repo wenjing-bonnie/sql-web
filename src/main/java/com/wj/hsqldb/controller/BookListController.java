@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by wenjing.liu on 2021/2/25 in J1.
- * 图书列表
+ * 图书列表：使用的{@link BookManageTransactionTemplateService}来处理事务
  */
 
 @WebServlet(name = "BookListServlet", value = "/booklist")
@@ -24,9 +24,6 @@ public class BookListController extends BaseHttpServlet {
     @Deprecated
     @Autowired
     private BookManagerJdbcService bookManagerService;
-    @Deprecated
-    @Autowired
-    private BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
     @Autowired
     private BookManageTransactionTemplateService bookManageTransactionTemplateService;
 

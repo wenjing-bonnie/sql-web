@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * Created by wenjing.liu on 2021/3/2 in J1.
- * 添加图书的jsp
+ * 添加图书的jsp:使用{@link BookManagerPlatformTransactionService}来处理事务
  */
 
 @WebServlet(urlPatterns = "/addbook")
@@ -23,11 +23,10 @@ public class AddBookController extends BaseHttpServlet {
     @Deprecated //小白新手web开发简单总结（十二）-数据库连接的相关优化（事务管理）中替换成
     @Autowired
     private BookManagerJdbcService bookManagerService;
-    @Deprecated
     @Autowired
     private BookManagerPlatformTransactionService bookManagerPlatformTransactionService;
-    @Autowired
-    private BookManageTransactionTemplateService bookManageTransactionTemplateService;
+    //@Autowired
+    //private BookManageTransactionTemplateService bookManageTransactionTemplateService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +41,7 @@ public class AddBookController extends BaseHttpServlet {
         book.name = name;
         book.price = Float.valueOf(price);
         book.online = online;
-        bookManageTransactionTemplateService.addBook(book);
+        bookManagerPlatformTransactionService.addBook(book);
         req.getRequestDispatcher("/booklist").forward(req, resp);
     }
 }

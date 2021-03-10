@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- TODO 增加数据库配置的配置文件-->
+    <!--    <context:property-placeholder location="classpath:config/jdbc.properties"/>-->
+    <!--配置DBCP数据源-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+          name="xmlBasicDataSource">
+        <property name="username" value="SA"/>
+        <property name="password" value=""/>
+        <property name="url" value="jdbc:hsqldb:file:db/hsqldb/xbook"/>
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+
+        <property name="maxActive" value="6"/>
+        <property name="maxIdle" value="3"/>
+    </bean>
+    <!--小白新手web开发简单总结（十二）-数据库连接的相关优化（事务管理）-->
+    <bean id="xmlTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="xmlTransactionManager"/>
+
+    <!--配置哪些方法需要切入什么类型的事务-->
+<!--    <tx:advice id="advice" transaction-manager="transactionManager">-->
+<!--        <tx:attributes>-->
+<!--            &lt;!&ndash;拦截-->
+<!--            下面的方法，即我们在写逻辑的时候，要以&ndash;&gt;-->
+<!--            <tx:method name="createBookTable" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="10"-->
+<!--                       read-only="false"/>-->
+<!--            <tx:method name="getBook" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="10" read-only="false"/>-->
+<!--            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+<!--    &lt;!&ndash;定义哪个包的哪些类需要切入事务&ndash;&gt;-->
+<!--    <aop:config>                                 &lt;!&ndash;任意返回类型  com.wj.hsqldb.controller.service下面类中的任意方法 方法可以有任意多的参数&ndash;&gt;-->
+<!--        <aop:pointcut id="pointcut"-->
+<!--                      expression="execution(* com.wj.hsqldb.controller.service.BookManagerXmlTransactionService.*(..))"/>-->
+<!--        <aop:advisor advice-ref="advice" pointcut-ref="pointcut"/>-->
+<!--    </aop:config>-->
+</beans>

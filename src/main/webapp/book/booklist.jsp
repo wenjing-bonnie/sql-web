@@ -25,22 +25,24 @@
 %>
 <label>contextPath:${pageContext.request.contextPath}</label>
 
-<table width="50%" border="1px" style="margin-top: 50px;" title="${display}">
+<table width="50%" border="1px" style="margin-top: 50px;border-collapse: collapse;" title="${display}">
 
     <tr> <!--加粗-->
         <th>Book id</th>
         <th>Book name</th>
         <th>Book price</th>
         <th>Book online</th>
+        <th></th>
     </tr>
 
-    <c:forEach items="${book}" var="it">
+    <c:forEach items="${book}" var="it" >
 
-        <tr style="color: red;alignment: center">
+        <tr style="color: red;alignment: center" onclick="window.location.href='/detail?id=${it.id}'">
             <td>${it.id}</td>
             <td>${it.name}</td>
             <td>${it.price}</td>
             <td>${it.online}</td>
+            <td >查看</td>
         </tr>
     </c:forEach>
 
