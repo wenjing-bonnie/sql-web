@@ -13,6 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,7 +22,7 @@ import java.util.List;
  * Created by wenjing.liu on 2021/2/25 in J1.
  * <p>
  * 配合Servlet来完成与jsp的页面展示
- * 通过声明式事务来管理事务
+ * 通过声明式事务来管理事务，并且通过{@link #verifyTransaction(Book, String)}来验证已成功加入事务
  */
 @Configuration
 @PropertySource("classpath:/config/jdbc.properties")
@@ -71,7 +73,9 @@ public class BookManagerXmlTransactionService {
     }
 
     private String getTableRowCount(String table, int count) {
-        return String.format("目前 %s 表中一共有 %d 条数据", table, count);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = df.format(new Date());
+        return String.format("%s ||   目前 %s 表中一共有 %d 条数据", date, table, count);
     }
 
     private int addBookSQL(String table, Book book) {

@@ -29,8 +29,7 @@
     <!--配置哪些方法需要切入什么类型的事务-->
     <tx:advice id="advice" transaction-manager="xmlTransactionManager">
         <tx:attributes>
-            <!--拦截
-            下面的方法，即我们在写逻辑的时候，要以-->
+            <!--拦截下面的方法，即我们在业务逻辑中的相关调用数据库的方法-->
             <tx:method name="createBookTable" propagation="REQUIRED" isolation="READ_COMMITTED"/>
             <tx:method name="*SQL" propagation="REQUIRED" isolation="READ_COMMITTED"/>
             <tx:method name="verifyTransaction" propagation="REQUIRED" isolation="READ_COMMITTED"/>
