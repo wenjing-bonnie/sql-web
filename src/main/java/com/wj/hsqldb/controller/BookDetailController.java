@@ -27,6 +27,7 @@ public class BookDetailController extends BaseHttpServlet {
         String id = req.getParameter("id");
         Book book = transactionService.getBook(id);
         req.setAttribute("book", book);
+        transactionService.verifyTransaction(book, id);
         req.getRequestDispatcher("/book/detail.jsp").forward(req, resp);
     }
 }

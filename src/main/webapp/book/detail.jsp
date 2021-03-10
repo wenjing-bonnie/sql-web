@@ -14,11 +14,14 @@
 </head>
 <body>
 
-<label style="font-size: larger;color: rebeccapurple;">图书的名字为：<%= book.name%></label>
+<label style="font-size: larger;color: rebeccapurple;">图书的名字为：<%= book.name%>
+</label>
 <br>
-<label style="font-size: larger;color: rebeccapurple;">图书的价格为：<%= book.price%></label>
+<label style="font-size: larger;color: rebeccapurple;">图书的价格为：<%= book.price%>
+</label>
 <br>
-<label style="font-size: larger;color: rebeccapurple;">图书上线时间：<%= book.online%></label>
+<label style="font-size: larger;color: rebeccapurple;">图书上线时间：<%= book.online%>
+</label>
 <br>
 
 </body>
