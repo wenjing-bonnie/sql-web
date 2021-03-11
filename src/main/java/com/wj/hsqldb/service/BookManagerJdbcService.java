@@ -1,4 +1,4 @@
-package com.wj.hsqldb.controller.service;
+package com.wj.hsqldb.service;
 
 import com.wj.hsqldb.datasource.JdbcDataSource;
 import com.wj.hsqldb.model.Book;

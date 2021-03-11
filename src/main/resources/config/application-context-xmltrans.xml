@@ -39,7 +39,7 @@
     <!--定义哪个包的哪些类需要切入事务-->
     <aop:config>                                 <!--任意返回类型  com.wj.hsqldb.controller.service下面类中的任意方法 方法可以有任意多的参数-->
         <aop:pointcut id="pointcut"
-                      expression="execution(* com.wj.hsqldb.controller.service.BookManagerXmlTransactionService.*(..))"/>
+                      expression="execution(* com.wj.hsqldb.service.BookManagerXmlTransactionService.*(..))"/>
         <aop:advisor advice-ref="advice" pointcut-ref="pointcut"/>
     </aop:config>
 </beans>

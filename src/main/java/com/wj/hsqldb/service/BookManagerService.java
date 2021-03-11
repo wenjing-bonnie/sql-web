@@ -1,6 +1,5 @@
-package com.wj.hsqldb.controller.service;
+package com.wj.hsqldb.service;
 
-import com.wj.hsqldb.controller.service.BookManagerJdbcService;
 import com.wj.hsqldb.db.DbOperation;
 import com.wj.hsqldb.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;

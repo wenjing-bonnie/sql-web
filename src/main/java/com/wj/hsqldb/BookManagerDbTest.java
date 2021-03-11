@@ -1,6 +1,6 @@
 package com.wj.hsqldb;
 
-import com.wj.hsqldb.controller.service.BookManagerService;
+import com.wj.hsqldb.service.BookManagerService;
 import com.wj.hsqldb.db.JdbcConfiguration;
 import com.wj.hsqldb.model.Book;
 import org.springframework.context.ApplicationContext;
