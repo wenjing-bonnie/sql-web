@@ -4,6 +4,8 @@ import com.wj.hsqldb.model.Librarian;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -18,6 +20,8 @@ public class LibrarianManagerService {
     private String tableName = "librarian";
     @Resource
     private SessionFactory sessionFactory;
+    @Resource
+    private HibernateTemplate hibernateTemplate;
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
@@ -36,7 +40,10 @@ public class LibrarianManagerService {
         } else {
             librarian.setId(new Long(librarians.size() + 1));
         }
+        //使用Session
         getSession().save(librarian);
+        //使用HibernateTemplate
+        //hibernateTemplate.save(librarian);
     }
 
     /**

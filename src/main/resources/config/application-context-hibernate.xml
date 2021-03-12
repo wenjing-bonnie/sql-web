@@ -62,4 +62,9 @@
         <aop:pointcut id="txPointcut" expression="execution(* com.wj.hsqldb.service.LibrarianManagerService.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
+
+    <!--增加HibernateTemplate-->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 </beans>
