@@ -27,8 +27,27 @@
         <input type="text" name="sex">
     </div>
     <div>
-        <input type="submit" value="保存">
+        <input type="submit" value="保存"> <!-- onclick="saveLibrarian()"-->
     </div>
 </form>
+
+<script type="text/javascript">
+    function saveLibrarian() {
+        var name = document.getElementById("name").value;
+        var age = document.getElementById("age").value;
+        var sex = document.getElementById("sex").value;
+        $.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/addlibrarian",
+            data: "name=" + name + "&age=" + age + "&sex=" + sex,
+            dataType: 'json',
+            success: function (msg) {
+                alert(msg);
+            }, error: function () {
+
+            }
+        });
+    }
+</script>
 </body>
 </html>

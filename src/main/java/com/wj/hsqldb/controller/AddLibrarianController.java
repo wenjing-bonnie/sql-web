@@ -18,7 +18,7 @@ import java.util.List;
  */
 @WebServlet(urlPatterns = "/addlibrarian")
 public class AddLibrarianController extends BaseHttpServlet {
-    //@Autowired
+    @Autowired
     LibrarianManagerService librarianManagerService;
 
     @Override
@@ -34,14 +34,21 @@ public class AddLibrarianController extends BaseHttpServlet {
         librarian.setAge(Integer.parseInt(age));
         librarian.setName(name);
         librarian.setSex(sex);
-        req.setAttribute("librarian", librarian);
-
+        //保存
         librarianManagerService.insertLibrarian(librarian);
-//        List<Librarian> librarians = librarianManagerService.getLibrarian();
-//        if (librarians != null) {
-//            System.out.println("librarians = " + librarians.size());
-//        }
-        req.getRequestDispatcher("/librarian").forward(req, resp);
-
+        List<Librarian> librarians = librarianManagerService.getLibrarian();
+        //查询
+        if (librarians != null) {
+            System.out.println(String.format("目前已有%d个管理员", librarians.size()));
+            for (Librarian lib : librarians) {
+                System.out.println(lib.toString());
+            }
+        }
+        req.setAttribute("librarian", librarian);
+        //调用forward() 的话,有关response对象的一切方法或者属性都会失去作用..只有request能被转向到下一个页面.
+        //    调用include()的话,response跟request都能被传递到转向的下一个页面..
+        //req.getRequestDispatcher("/librarian").forward(req, resp);
+        //1..request.getRequestDispatcher(String arg0)---转向的特点:
+        //2..response.sendRedirect(String arg0)---重定向的特点:
     }
 }

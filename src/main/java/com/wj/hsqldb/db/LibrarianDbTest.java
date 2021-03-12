@@ -5,13 +5,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
  * Created by wenjing.liu on 2021/3/12 in J1.
+ * <p>
+ * 仅仅用来写一些测试代码
  */
 @Configuration
 @ComponentScan
@@ -21,7 +22,9 @@ public class LibrarianDbTest {
         JdbcConfiguration configuration = context.getBean(JdbcConfiguration.class);
         Statement statement = configuration.createStatement();
         createLibrarianBook(statement);
+        insert(statement);
         query(statement);
+        //delete(statement);
     }
 
     private static void createLibrarianBook(Statement statement) {
@@ -36,14 +39,37 @@ public class LibrarianDbTest {
         }
     }
 
+    private static void insert(Statement statement) {
+        //3.插入新的数据
+        String insert = String.format("INSERT INTO %s \n" +
+                "(id, name, age, sex)\n" +
+                "VALUES (%d , '%s', %d,'%s' )", "librarian", 1, "小刘", 34, "女");
+
+        try {
+            statement.execute(insert);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
     private static void query(Statement statement) {
         String sql = "select * from librarian";
         try {
             ResultSet set = statement.executeQuery(sql);
             while (set.next()) {
-
+                System.out.println(set.getString(2));
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+    private static void delete(Statement statement) {
+        String sql = "delete table librarian";
+        try {
+            statement.execute(sql);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

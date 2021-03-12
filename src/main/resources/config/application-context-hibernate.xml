@@ -6,7 +6,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     <!--增加数据库配置的配置文件-->
-   <context:property-placeholder location="classpath:config/jdbc.properties"/>
+    <context:property-placeholder location="classpath:config/jdbc.properties"/>
+    <context:component-scan base-package="com.wj.hsqldb"/>
     <!--配置数据源-->
     <bean id="hiDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="user" value="${jdbc.user}"/>
@@ -17,11 +18,14 @@
         <property name="maxPoolSize" value="6"/>
     </bean>
     <!--添加SessionFactory-->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
-    >
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="hiDataSource"/>
-
-        <property name="mappingLocations" value="classpath:com/wj/hsqldb/model/*.hbm.xml"/>
+        <!--<property name="mappingResources"> 读取的是放在resource下面的.hbm.xml-->
+        <property name="packagesToScan">
+            <list>
+                <value>com.wj.hsqldb.model</value>
+            </list>
+        </property>
         <!--(第一种)也可以通过配置properties的方式来配饰-->
         <!--        <property name="hibernateProperties">-->
         <!--            <props>-->
@@ -31,6 +35,7 @@
         <!--        </property>-->
         <!--(第二种)也可以通过配置properties的方式来配饰-->
         <property name="configLocation" value="classpath:config/hibernate.cfg.xml"/>
+
     </bean>
     <!--配置Spring事务-->
 

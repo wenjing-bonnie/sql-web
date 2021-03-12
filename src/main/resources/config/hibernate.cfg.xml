@@ -16,7 +16,6 @@
         <!--update:只是更新，没有就创建；create：每次都是新创建；create-drop用完就会删除表-->
 <!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
         <!--下一层级的映射关系，用来配置JavaBean与数据库之间的关系-->
-<!--        <mapping resource="com/wj/hsqldb/model/Librarian.hbm.xml"/>-->
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
