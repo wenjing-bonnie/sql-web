@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by wenjing.liu on 2021/3/11 in J1.
@@ -17,7 +18,7 @@ import java.io.IOException;
  */
 @WebServlet(urlPatterns = "/addlibrarian")
 public class AddLibrarianController extends BaseHttpServlet {
-    @Autowired
+    //@Autowired
     LibrarianManagerService librarianManagerService;
 
     @Override
@@ -36,7 +37,10 @@ public class AddLibrarianController extends BaseHttpServlet {
         req.setAttribute("librarian", librarian);
 
         librarianManagerService.insertLibrarian(librarian);
-
+//        List<Librarian> librarians = librarianManagerService.getLibrarian();
+//        if (librarians != null) {
+//            System.out.println("librarians = " + librarians.size());
+//        }
         req.getRequestDispatcher("/librarian").forward(req, resp);
 
     }

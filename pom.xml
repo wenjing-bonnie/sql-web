@@ -97,6 +97,14 @@
             <artifactId>spring-orm</artifactId>
             <version>5.2.5.RELEASE</version>
         </dependency>
+        <!--Failed to load class "org.slf4j.impl.StaticLoggerBinder"
+        还可以让tomcat的输出启动不成功的日志-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.5</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- 与jsp中的C标签相关的依赖-->
         <dependency>
             <groupId>javax.servlet</groupId>

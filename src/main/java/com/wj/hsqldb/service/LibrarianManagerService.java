@@ -4,6 +4,7 @@ import com.wj.hsqldb.model.Librarian;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -15,14 +16,14 @@ import java.util.List;
 //@Component
 public class LibrarianManagerService {
     private String tableName = "librarian";
-    @Resource
+    //@Resource
     private SessionFactory sessionFactory;
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void createTable() {
         //getSession().
     }
