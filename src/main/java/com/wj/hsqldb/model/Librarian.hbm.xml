@@ -7,7 +7,7 @@
 
     <class name="com.wj.hsqldb.model.Librarian" table="librarian">
         <id name="id" type="int" column="id">
-<!--            <generator class="identity"></generator>-->
+            <generator class="identity"></generator>
         </id>
         <property name="name" type="string" column="name"/>
         <property name="age" type="java.lang.Integer" column="age"/>

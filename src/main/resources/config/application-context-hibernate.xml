@@ -32,9 +32,10 @@
     <!--    </bean>-->
     <!--配置Spring事务-->
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <!--        <property name="sessionFactory" ref="sessionFactory"/>-->
-    </bean>
+    <!--    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">-->
+    <!--        &lt;!&ndash;        <property name="sessionFactory" ref="sessionFactory"/>&ndash;&gt;-->
+    <!--    </bean>-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"/>
     <!--配置事务属性-->
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
