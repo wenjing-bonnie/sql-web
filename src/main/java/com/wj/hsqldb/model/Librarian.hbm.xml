@@ -6,7 +6,7 @@
 <hibernate-mapping package="com.wj.hsqldb.model">
 
     <class name="com.wj.hsqldb.model.Librarian" table="librarian">
-        <id name="id" type="int" column="id">
+        <id name="id" type="long" column="id">
             <generator class="identity"></generator>
         </id>
         <property name="name" type="string" column="name"/>

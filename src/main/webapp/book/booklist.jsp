@@ -52,7 +52,7 @@
 <input type="button" value="添加图书"
        style="color: aqua; width: 10%;height: 5%;font-size: larger;margin-top: 50px;background: yellow;"
        onclick="window.location.href='/book/addbook.jsp'">
-
+<br>
 <input type="button" value="添加图书管理人员" onclick="window.location.href='../librarian/addlibrarian.jsp'">
 </body>
 </html>

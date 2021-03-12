@@ -20,12 +20,18 @@
     <!--添加SessionFactory-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="hiDataSource"/>
-        <!--<property name="mappingResources"> 读取的是放在resource下面的.hbm.xml-->
+        <!--<property name="mappingResources"> 指定classpath下具体映射文件名或者利用list同时指定多个 映射文件
+         mappingLocations：可以指定任何文件路径，并且可以指定前缀：classpath、file等
+         -->
+<!--        <property name="mappingLocations">-->
+<!--            <value>com/wj/hsqldb/model/Librarian.hbm.xml</value>-->
+<!--        </property>-->
         <property name="packagesToScan">
             <list>
                 <value>com.wj.hsqldb.model</value>
             </list>
         </property>
+
         <!--(第一种)也可以通过配置properties的方式来配饰-->
         <!--        <property name="hibernateProperties">-->
         <!--            <props>-->

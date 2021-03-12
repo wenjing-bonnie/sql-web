@@ -1,7 +1,6 @@
 package com.wj.hsqldb.service;
 
 import com.wj.hsqldb.model.Librarian;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -31,7 +30,7 @@ public class LibrarianManagerService {
      */
     public void insertLibrarian(Librarian librarian) {
         String sql = String.format("SELECT * FROM %s", tableName);
-        List<Librarian> librarians = getSession().createSQLQuery(sql).list();
+        List<Librarian> librarians = getSession().createSQLQuery(sql).addEntity(Librarian.class).list();
         if (librarians == null || librarians.isEmpty()) {
             librarian.setId(new Long(1));
         } else {
@@ -47,7 +46,8 @@ public class LibrarianManagerService {
      */
     public List<Librarian> getLibrarian() {
         String sql = String.format("SELECT * FROM %s", tableName);
-        Query query = getSession().createSQLQuery(sql);
+        //java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to com.wj.hsqldb.model.Librarian
+        Query query = getSession().createSQLQuery(sql).addEntity(Librarian.class);
         return query.list();
     }
 

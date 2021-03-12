@@ -40,8 +40,8 @@ public class AddLibrarianController extends BaseHttpServlet {
         //查询
         if (librarians != null) {
             System.out.println(String.format("目前已有%d个管理员", librarians.size()));
-            for (Librarian lib : librarians) {
-                System.out.println(lib.toString());
+            for (int i = 0; i < librarians.size(); i++) {
+                System.out.println(librarians.get(i).toString());
             }
         }
         req.setAttribute("librarian", librarian);
