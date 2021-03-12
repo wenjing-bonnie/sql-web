@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: j1
@@ -11,6 +12,12 @@
     <title>添加图书管理人员</title>
 </head>
 <body>
+
+<%--<c:forEach items="librarians" var="lib">--%>
+<%--    <label>${lib.name}</label>--%>
+<%--    <label>${lib.age}</label>--%>
+<%--    <label>${lib.sex}</label>--%>
+<%--</c:forEach>--%>
 
 <form action="${pageContext.request.contextPath}/addlibrarian" method="get">
     <div>

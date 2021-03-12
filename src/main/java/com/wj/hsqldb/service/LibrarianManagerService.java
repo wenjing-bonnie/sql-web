@@ -50,5 +50,7 @@ public class LibrarianManagerService {
         Query query = getSession().createSQLQuery(sql).addEntity(Librarian.class);
         return query.list();
     }
+    //取得持久化对象的方法： get() load()
+    //持久化对象保存，更新和删除：save(),update(),saveOrUpdate(),delete()
 
 }
