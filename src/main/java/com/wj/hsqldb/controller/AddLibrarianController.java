@@ -36,14 +36,9 @@ public class AddLibrarianController extends BaseHttpServlet {
         librarian.setSex(sex);
         //保存
         librarianManagerService.insertLibrarian(librarian);
-        List<Librarian> librarians = librarianManagerService.getLibrarian();
         //查询
-        if (librarians != null) {
-            System.out.println(String.format("目前已有%d个管理员", librarians.size()));
-            for (int i = 0; i < librarians.size(); i++) {
-                System.out.println(librarians.get(i).toString());
-            }
-        }
+        librarianManagerService.getLibrarian();
+
         req.setAttribute("librarian", librarian);
         //调用forward() 的话,有关response对象的一切方法或者属性都会失去作用..只有request能被转向到下一个页面.
         //    调用include()的话,response跟request都能被传递到转向的下一个页面..
