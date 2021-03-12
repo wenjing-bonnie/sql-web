@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:hsqldb:file:db/hsqldb/xbook</property>
+        <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="connection.username">SA</property>
+        <property name="connection.password"></property>
+        <!--转换为合适的数据库语句-->
+        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+        <!--是否显示sql语句-->
+        <property name="hibernate.show_sql">true</property>
+        <!--update:只是更新，没有就创建；create：每次都是新创建；create-drop用完就会删除表-->
+<!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
+        <!--下一层级的映射关系，用来配置JavaBean与数据库之间的关系-->
+        <mapping resource="com/wj/hsqldb/model/Librarian.hbm.xml"/>
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>

@@ -85,6 +85,18 @@
             <artifactId>hsqldb</artifactId>
             <version>2.5.0</version>
         </dependency>
+        <!--hibernate-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.12.Final</version>
+        </dependency>
+        <!--Spring ORM-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>5.2.5.RELEASE</version>
+        </dependency>
         <!-- 与jsp中的C标签相关的依赖-->
         <dependency>
             <groupId>javax.servlet</groupId>

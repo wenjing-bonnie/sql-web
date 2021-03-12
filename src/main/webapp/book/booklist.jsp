@@ -35,14 +35,14 @@
         <th></th>
     </tr>
 
-    <c:forEach items="${book}" var="it" >
+    <c:forEach items="${book}" var="it">
 
         <tr style="color: red;alignment: center" onclick="window.location.href='/detail?id=${it.id}'">
             <td>${it.id}</td>
             <td>${it.name}</td>
             <td>${it.price}</td>
             <td>${it.online}</td>
-            <td >查看</td>
+            <td>查看</td>
         </tr>
     </c:forEach>
 
@@ -52,5 +52,7 @@
 <input type="button" value="添加图书"
        style="color: aqua; width: 10%;height: 5%;font-size: larger;margin-top: 50px;background: yellow;"
        onclick="window.location.href='/book/addbook.jsp'">
+
+<input type="button" value="添加图书管理人员" onclick="window.location.href='../librarian/addlibrarian.jsp'">
 </body>
 </html>

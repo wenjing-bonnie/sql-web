@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--增加数据库配置的配置文件-->
+    <context:property-placeholder location="classpath:config/jdbc.properties"/>
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${jdbc.user.http}"/>
+        <property name="password" value="${jdbc.password.http}"/>
+        <property name="jdbcUrl" value="${jdbc.url.http}"/>
+        <property name="driverClass" value="${jdbc.driverClass.http}"/>
+    </bean>
+    <!--添加SessionFactory-->
+    <!--    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"-->
+    <!--          lazy-init="false">-->
+    <!--        <property name="dataSource" ref="dataSource"/>-->
+
+    <!--        <property name="mappingLocations" value="classpath:com/wj/hsqldb/model/*.hbm.xml"/>-->
+    <!--        &lt;!&ndash;(第一种)也可以通过配置properties的方式来配饰&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <property name="hibernateProperties">&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <props>&ndash;&gt;-->
+    <!--        &lt;!&ndash;                <prop key="dialect"></prop>&ndash;&gt;-->
+
+    <!--        &lt;!&ndash;            </props>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </property>&ndash;&gt;-->
+    <!--        &lt;!&ndash;(第二种)也可以通过配置properties的方式来配饰&ndash;&gt;-->
+    <!--        <property name="configLocation" value="classpath:config/hibernate.cfg.xml"/>-->
+    <!--    </bean>-->
+    <!--配置Spring事务-->
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <!--        <property name="sessionFactory" ref="sessionFactory"/>-->
+    </bean>
+    <!--配置事务属性-->
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+
+        <tx:attributes>
+            <tx:method name="get*"/>
+            <tx:method name="*Librarian"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--配置事务切入点-->
+    <aop:config>
+        <aop:pointcut id="txPointcut" expression="execution(* com.wj.hsqldb.service.LibrarianManagerService.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+</beans>
