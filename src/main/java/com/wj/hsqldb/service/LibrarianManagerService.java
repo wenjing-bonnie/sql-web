@@ -4,7 +4,6 @@ import com.wj.hsqldb.model.Librarian;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
@@ -41,9 +40,9 @@ public class LibrarianManagerService {
             librarian.setId(new Long(librarians.size() + 1));
         }
         //使用Session
-        getSession().save(librarian);
+        //getSession().save(librarian);
         //使用HibernateTemplate
-        //hibernateTemplate.save(librarian);
+        hibernateTemplate.save(librarian);
     }
 
     /**
@@ -61,12 +60,18 @@ public class LibrarianManagerService {
         //Query query = session.createSQLQuery(sql).addEntity(XXXXXXX.class);
         //java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to com.wj.hsqldb.model.Librarian
         System.out.println(" = createSQLQuery = ");
+        //使用Session
         Query query = getSession().createSQLQuery(sql).addEntity(Librarian.class);
         printLibrarian(query);
-        System.out.println(" = createQuery = ");
-        sql = String.format("from Librarian %s ", tableName);
-        Query<Librarian> other = getSession().createQuery(sql, Librarian.class);
-        printLibrarian(other);
+        //使用HibernateTemplate
+        List<Librarian> result = hibernateTemplate.loadAll(Librarian.class);
+        for (Librarian re : result) {
+            System.out.println("result = " + re);
+        }
+        // System.out.println(" = createQuery = ");
+        //sql = String.format("from Librarian %s ", tableName);
+        //Query<Librarian> other = getSession().createQuery(sql, Librarian.class);
+        //printLibrarian(other);
         return query.list();
     }
     //取得持久化对象的方法： get() load()
