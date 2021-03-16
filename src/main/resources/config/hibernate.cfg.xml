@@ -14,10 +14,8 @@
         <!--是否显示sql语句-->
         <property name="hibernate.show_sql">true</property>
         <!--update:只是更新，没有就创建；create：每次都是新创建；create-drop用完就会删除表-->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!--我现在理解的是update用完一次要记得隐藏-->
+<!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
         <!--下一层级的映射关系，用来配置JavaBean与数据库之间的关系-->
-
-        <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>
 </hibernate-configuration>
