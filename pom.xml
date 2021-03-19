@@ -122,7 +122,7 @@
             <artifactId>spring-webmvc</artifactId>
             <version>5.2.5.RELEASE</version>
         </dependency>
-        <!--MySQL驱动-->
+        <!--MySQL驱动要与使用的sql数据库版本一致-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
