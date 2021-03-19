@@ -4,10 +4,12 @@ import com.wj.hsqldb.model.Librarian;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.servlet.Filter;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 @Component
 public class LibrarianManagerService {
     private String tableName = "librarian";
-    @Resource
+    @Autowired
     private SessionFactory sessionFactory;
     @Resource
     private HibernateTemplate hibernateTemplate;
