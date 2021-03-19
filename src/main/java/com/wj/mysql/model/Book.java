@@ -2,11 +2,13 @@ package com.wj.mysql.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * book
- * @author 
+ *
+ * @wenjing.liu
  */
 @Data
 public class Book implements Serializable {
