@@ -2,29 +2,20 @@ package com.wj.mysql.service;
 
 import com.wj.mysql.model.Book;
 import com.wj.mysql.model.BookMapper;
-import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * Created by wenjing.liu on 2021/3/22 in J1.
  * 处理Book的实现类
  */
-//@Component
+@Component
 public class BookServiceImpl implements BookMapper {
-    @Resource
-    private MapperFactoryBean factoryBean;
+    @Autowired
     private BookMapper bookService;
-
-    @PostConstruct
-    private void createMapper() {
-        // bookService = sessionFactory.
-        bookService = factoryBean.getSqlSession().getMapper(BookMapper.class);
-    }
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
