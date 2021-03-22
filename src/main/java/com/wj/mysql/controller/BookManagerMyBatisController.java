@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +29,9 @@ public class BookManagerMyBatisController extends BaseHttpServlet {
             System.out.println(book.toString());
         }
         Book book = new Book();
-        book.setName("1333");
+        book.setName("Java 基本语法");
+        book.setPrice(49.0);
+        book.setOnline(new Date());
         int result = service.insert(book);
         System.out.println(result);
         System.out.println(service.selectByPrimaryKey(1001));

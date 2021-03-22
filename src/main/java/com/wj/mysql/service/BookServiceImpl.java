@@ -7,15 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * Created by wenjing.liu on 2021/3/22 in J1.
  * 处理Book的实现类
  */
-@Component
+//@Component
 public class BookServiceImpl implements BookMapper {
-    @Autowired
+    @Resource
     private MapperFactoryBean factoryBean;
     private BookMapper bookService;
 

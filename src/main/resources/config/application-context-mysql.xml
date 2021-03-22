@@ -13,7 +13,8 @@
 
     <context:property-placeholder location="classpath:config/jdbc.properties"/>
     <!--配置数据源-->
-    <bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          name="mysqlDataSource">
         <property name="driverClassName" value="${jdbc.mysql.driverClass}"/>
         <property name="url" value="${jdbc.mysql.url}"/>
         <property name="username" value="${jdbc.mysql.user}"/>
@@ -22,25 +23,32 @@
         <property name="initialSize" value="2"/>
         <property name="minIdle" value="2"/>
     </bean>
+    <!-- ====== mybatis新增的代码 ===== -->
     <!--配置SessionFactory-->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" name="sqlSessionFactory">
         <property name="dataSource" ref="mysqlDataSource"/>
         <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
     </bean>
     <!--方法一：单个定义Book的mapper文件，为单个接口文件生成代理对象-->
-    <bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.wj.mysql.model.BookMapper"/>
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
-    <!--方法二：扫描对应的包下的每个接口文件，为每个接口生成代理对象-->
-    <!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-    <!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
-    <!--        <property name="basePackage" value="com.wj.mysql.model"/>-->
+    <!--！！！！！此时的sqlSessionFactory中的name="dataSource"配置必须使用ref="mysqlDataSource"-->
+    <!--    <bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+    <!--        <property name="mapperInterface" value="com.wj.mysql.model.BookMapper"/>-->
+    <!--        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
     <!--    </bean>-->
+    <!--方法二：扫描对应的包下的每个接口文件，为每个接口生成代理对象-->
+    <!--注意:如果你只有一个DataSource,那么就没有必要去指定SqlSessionFactory或SqlSessionTemplate，
+    因为MapperScannerConfigurer将会创建MapperFactoryBean，之后自动装配。
+    但是，如果你使用了一个以上的DataSource(因此，也是多个的SqlSessionFactory),
+    那么就可以使用sqlSessionFactoryBeanName去指定sqlSessionFactory,否则自动装配可能会失效。-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.wj.mysql.model"/>
+    </bean>
 
-<!--    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">-->
-<!--        <constructor-arg type="org.apache.ibatis.session.SqlSessionFactory" ref="sqlSessionFactory"/>-->
-<!--    </bean>-->
+    <!--    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">-->
+    <!--        <constructor-arg type="org.apache.ibatis.session.SqlSessionFactory" ref="sqlSessionFactory"/>-->
+    <!--    </bean>-->
+    <!-- =====   mybatis新增的代码 ===== -->
     <!--配置事务管理 先暂时不加ORM，后面直接在这个基础上去学习MyBatis-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="mysqlDataSource"/>
