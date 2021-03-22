@@ -25,19 +25,22 @@
     <!--配置SessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="mysqlDataSource"/>
-        <property name="configLocation" value="config/mybatis-config.xml"/>
+        <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
     </bean>
     <!--方法一：单个定义Book的mapper文件，为单个接口文件生成代理对象-->
     <bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.wj.mysql.model.BookDao"/>
+        <property name="mapperInterface" value="com.wj.mysql.model.BookMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
     <!--方法二：扫描对应的包下的每个接口文件，为每个接口生成代理对象-->
-<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-<!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
-<!--        <property name="basePackage" value="com.wj.mysql.model"/>-->
-<!--    </bean>-->
+    <!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+    <!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+    <!--        <property name="basePackage" value="com.wj.mysql.model"/>-->
+    <!--    </bean>-->
 
+<!--    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg type="org.apache.ibatis.session.SqlSessionFactory" ref="sqlSessionFactory"/>-->
+<!--    </bean>-->
     <!--配置事务管理 先暂时不加ORM，后面直接在这个基础上去学习MyBatis-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="mysqlDataSource"/>
@@ -47,6 +50,10 @@
     <tx:advice id="advice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="*SQL" propagation="REQUIRED"/>
+            <tx:method name="insert*"/>
+            <tx:method name="select*"/>
+            <tx:method name="update*"/>
+            <tx:method name="delete*"/>
         </tx:attributes>
     </tx:advice>
     <app:config>

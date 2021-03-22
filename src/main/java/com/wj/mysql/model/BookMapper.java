@@ -1,8 +1,8 @@
 package com.wj.mysql.model;
 
-import com.wj.mysql.model.Book;
+import java.util.List;
 
-public interface BookDao {
+public interface BookMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Book record);
@@ -14,4 +14,6 @@ public interface BookDao {
     int updateByPrimaryKeySelective(Book record);
 
     int updateByPrimaryKey(Book record);
+
+    List<Book> select();
 }

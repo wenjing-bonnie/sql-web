@@ -4,12 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    <!--别名-->
     <typeAliases>
         <typeAlias alias="book" type="com.wj.mysql.model.Book"/>
     </typeAliases>
-
+    <!--映射文件的位置-->
     <mappers>
-        <mapper resource="mysql/BookDao.xml"/>
+        <mapper resource="mysql/BookMapper.xml"/>
     </mappers>
 
 </configuration>
