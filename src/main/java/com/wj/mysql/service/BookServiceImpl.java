@@ -16,9 +16,10 @@ import java.util.List;
 @Component
 public class BookServiceImpl implements BookMapper {
     //方法一
-    @Resource
-    private SqlSessionTemplate sqlSessionTemplate;
     //@Resource
+    private SqlSessionTemplate sqlSessionTemplate;
+    //方法二
+    @Resource
     private BookDaoSupport bookDaoSupport;
     // @Autowired
     private BookMapper bookService;
@@ -30,11 +31,16 @@ public class BookServiceImpl implements BookMapper {
 
     @Override
     public int insert(Book record) {
-        return insertByTemplate(record);
+        return insertByDaoSupport(record);
+        //return insertByTemplate(record);
     }
 
     private int insertByTemplate(Book recode) {
         return sqlSessionTemplate.insert("com.wj.mysql.model.BookMapper.insert", recode);
+    }
+
+    private int insertByDaoSupport(Book recode) {
+        return bookDaoSupport.insert(recode);
     }
 
     private int insertByMapper(Book recode) {
@@ -43,8 +49,8 @@ public class BookServiceImpl implements BookMapper {
 
     @Override
     public List<Book> select() {
-        //return selectByDaoSupport();
-        return selectByTemplate();
+        return selectByDaoSupport();
+        //return selectByTemplate();
         //return selectByMapper();
     }
 

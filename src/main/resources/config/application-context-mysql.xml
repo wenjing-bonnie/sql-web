@@ -29,13 +29,13 @@
         <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
     </bean>
     <!--方法一：通过SqlSessionTemplate来读写数据库-->
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" name="sqlSessionTemplate">
-        <constructor-arg type="org.apache.ibatis.session.SqlSessionFactory" ref="sqlSessionFactory"/>
+    <!--    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" name="sqlSessionTemplate">-->
+    <!--        <constructor-arg type="org.apache.ibatis.session.SqlSessionFactory" ref="sqlSessionFactory"/>-->
+    <!--    </bean>-->
+    <!--方法二：通过DaoSupport来读写数据库-->
+    <bean id="bookDaoSupport" class="com.wj.mysql.service.BookDaoSupport">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
-
-<!--    <bean id="bookDaoSupport" class="com.wj.mysql.service.BookDaoSupport">-->
-<!--        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
-<!--    </bean>-->
     <!--方法二：单个定义Book的mapper文件，为单个接口文件生成代理对象-->
     <!--！！！！！此时的sqlSessionFactory中的name="dataSource"配置必须使用ref="mysqlDataSource"-->
     <!--    <bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
@@ -47,10 +47,10 @@
     因为MapperScannerConfigurer将会创建MapperFactoryBean，之后自动装配。
     但是，如果你使用了一个以上的DataSource(因此，也是多个的SqlSessionFactory),
     那么就可以使用sqlSessionFactoryBeanName去指定sqlSessionFactory,否则自动装配可能会失效。-->
-<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-<!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
-<!--        <property name="basePackage" value="com.wj.mysql.model"/>-->
-<!--    </bean>-->
+    <!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+    <!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+    <!--        <property name="basePackage" value="com.wj.mysql.model"/>-->
+    <!--    </bean>-->
 
 
     <!-- =====   mybatis新增的代码 ===== -->

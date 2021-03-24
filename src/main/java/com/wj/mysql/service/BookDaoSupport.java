@@ -20,7 +20,7 @@ public class BookDaoSupport extends SqlSessionDaoSupport implements BookMapper {
     @Override
     public int insert(Book record) {
 
-        return 0;
+        return getSqlSessionTemplate().insert("com.wj.mysql.model.BookMapper.insert", record);
     }
 
     @Override
