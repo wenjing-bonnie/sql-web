@@ -84,4 +84,8 @@
         <property name="hikariDataSource" ref="hikariDataSource"/>
     </bean>
 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="c3p0DataSource"/>
+    </bean>
+
 </beans>

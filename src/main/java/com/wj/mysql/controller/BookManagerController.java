@@ -3,6 +3,7 @@ package com.wj.mysql.controller;
 import com.wj.hsqldb.controller.base.BaseHttpServlet;
 import com.wj.mysql.model.FakeBook;
 import com.wj.mysql.service.MysqlBookManagerService;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -23,6 +24,7 @@ public class BookManagerController extends BaseHttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("=== 目前数据库里的数据 === ");
+        super.doGet(req, resp);
         service.query();
         for (int i = 2; i < 5; i++) {
             FakeBook book = new FakeBook();
@@ -33,5 +35,6 @@ public class BookManagerController extends BaseHttpServlet {
         }
         System.out.println("=== 插入数据之后，数据库里的数据 === ");
         service.query();
+        SqlSession s;
     }
 }

@@ -26,13 +26,14 @@ import java.util.List;
 public class BookManagerJdbcService {
     @Value("${jdbc.table}")
     private String jdbcTable = "book";
-    @Resource
+    //@Resource
     private JdbcDataSource jdbcDataSource;
+    @Resource
     private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
     public void createBookTable() {
-        jdbcTemplate = jdbcDataSource.createJdbcTemplate();
+        //jdbcTemplate = jdbcDataSource.createJdbcTemplate();
         System.out.println("BookManagerJdbcService 初始化 自动创建表!!!");
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +
                 "(id INTEGER PRIMARY KEY , name VARCHAR(50) NOT NULL, price DOUBLE, online DATE)", jdbcTable);

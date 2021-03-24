@@ -63,7 +63,7 @@ public class LibrarianManagerService {
         //java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to com.wj.hsqldb.model.Librarian
         System.out.println(" = createSQLQuery = ");
         //使用Session
-        Query query = getSession().createSQLQuery(sql).addEntity(Librarian.class);
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql).addEntity(Librarian.class);
         printLibrarian(query);
         //使用HibernateTemplate
         List<Librarian> result = hibernateTemplate.loadAll(Librarian.class);

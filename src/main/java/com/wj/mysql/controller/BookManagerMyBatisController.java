@@ -23,17 +23,19 @@ public class BookManagerMyBatisController extends BaseHttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Book> books = service.select();
-        System.out.println("查询的数据为：====");
-        for (Book book : books) {
-            System.out.println(book.toString());
-        }
+
         Book book = new Book();
         book.setName("Java 基本语法");
         book.setPrice(49.0);
         book.setOnline(new Date());
         int result = service.insert(book);
-        System.out.println(result);
-        System.out.println(service.selectByPrimaryKey(1001));
+        System.out.println("=====  插入的数据，返回为：" + result);
+        List<Book> books = service.select();
+        System.out.println("====   查询的数据为：");
+        for (Book bo : books) {
+            System.out.println(bo.toString());
+        }
+//        System.out.println(result);
+//        System.out.println(service.selectByPrimaryKey(1001));
     }
 }
