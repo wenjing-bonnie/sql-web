@@ -33,15 +33,15 @@
     <!--        <constructor-arg type="org.apache.ibatis.session.SqlSessionFactory" ref="sqlSessionFactory"/>-->
     <!--    </bean>-->
     <!--方法二：通过DaoSupport来读写数据库-->
-    <bean id="bookDaoSupport" class="com.wj.mysql.service.BookDaoSupport">
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
-    <!--方法二：单个定义Book的mapper文件，为单个接口文件生成代理对象-->
-    <!--！！！！！此时的sqlSessionFactory中的name="dataSource"配置必须使用ref="mysqlDataSource"-->
-    <!--    <bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
-    <!--        <property name="mapperInterface" value="com.wj.mysql.model.BookMapper"/>-->
+    <!--    <bean id="bookDaoSupport" class="com.wj.mysql.service.BookDaoSupport">-->
     <!--        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
     <!--    </bean>-->
+    <!--方法三：单个定义Book的mapper文件，为单个接口文件生成代理对象-->
+    <!--！！！！！此时的sqlSessionFactory中的name="dataSource"配置必须使用ref="mysqlDataSource"-->
+    <bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.wj.mysql.model.BookMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
     <!--方法三：扫描对应的包下的每个接口文件，为每个接口生成代理对象-->
     <!--注意:如果你只有一个DataSource,那么就没有必要去指定SqlSessionFactory或SqlSessionTemplate，
     因为MapperScannerConfigurer将会创建MapperFactoryBean，之后自动装配。

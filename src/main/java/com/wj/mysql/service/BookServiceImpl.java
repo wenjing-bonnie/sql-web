@@ -19,9 +19,10 @@ public class BookServiceImpl implements BookMapper {
     //@Resource
     private SqlSessionTemplate sqlSessionTemplate;
     //方法二
-    @Resource
+    //@Resource
     private BookDaoSupport bookDaoSupport;
-    // @Autowired
+    //方法三
+    @Autowired
     private BookMapper bookService;
 
     @Override
@@ -31,8 +32,9 @@ public class BookServiceImpl implements BookMapper {
 
     @Override
     public int insert(Book record) {
-        return insertByDaoSupport(record);
+        //return insertByDaoSupport(record);
         //return insertByTemplate(record);
+        return insertByMapper(record);
     }
 
     private int insertByTemplate(Book recode) {
@@ -49,9 +51,9 @@ public class BookServiceImpl implements BookMapper {
 
     @Override
     public List<Book> select() {
-        return selectByDaoSupport();
+        //return selectByDaoSupport();
         //return selectByTemplate();
-        //return selectByMapper();
+        return selectByMapper();
     }
 
     private List<Book> selectByTemplate() {
