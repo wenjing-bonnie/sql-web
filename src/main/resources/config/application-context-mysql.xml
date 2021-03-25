@@ -69,7 +69,7 @@
         </tx:attributes>
     </tx:advice>
     <app:config>
-        <app:pointcut id="pointcut" expression="execution(* com.wj.mysql.service.MysqlBookManagerService.*(...))"/>
+        <app:pointcut id="pointcut" expression="execution(* com.wj.mysql.service.*.*(..))"/>
         <app:advisor advice-ref="advice" pointcut-ref="pointcut"/>
     </app:config>
 </beans>
