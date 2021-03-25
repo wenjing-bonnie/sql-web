@@ -15,5 +15,10 @@ public interface BookMapper {
 
     int updateByPrimaryKey(Book record);
 
+    /**
+     * 需要查询所有的书，新增
+     *
+     * @return
+     */
     List<Book> select();
 }

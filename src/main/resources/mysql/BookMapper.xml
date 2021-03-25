@@ -11,6 +11,7 @@
         id
         , `name`, price, `online`
     </sql>
+    <!--需要查询所有的书，新增-->
     <select id="select" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
