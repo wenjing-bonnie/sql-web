@@ -20,21 +20,23 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-<!--    <servlet>-->
-<!--        <servlet-name>sql-web</servlet-name>-->
-<!--        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
-<!--        &lt;!&ndash;如果需要设置init-param，必须要放到load-on-startup之前&ndash;&gt;-->
-<!--        <init-param>-->
-<!--            <param-name>contextConfigLocation</param-name>-->
-<!--            <param-value>classpath:config/spring-context.xml</param-value>-->
-<!--        </init-param>-->
-<!--        &lt;!&ndash;表示启动容器的时候就初始化该Servlet&ndash;&gt;-->
-<!--        <load-on-startup>1</load-on-startup>-->
-<!--    </servlet>-->
+    <!--增加Spring MVC-->
+    <servlet>
+        <servlet-name>sql-web</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--如果需要设置init-param，必须要放到load-on-startup之前-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/spring-context.xml</param-value>
+        </init-param>
+        <!--表示启动容器的时候就初始化该Servlet-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>sql-web</servlet-name>-->
-<!--        <url-pattern>/*</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>sql-web</servlet-name>
+        <!--https://blog.csdn.net/weixin_44415997/article/details/100098081解决路径匹配不到的情况-->
+        <url-pattern>/mvc/*</url-pattern>
+    </servlet-mapping>
 </web-app>
 

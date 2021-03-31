@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
     <!--注解驱动：自动配置最新的注解的处理器映射器和处理器适配器-->
-    <mvc:annotation-driven/>
-<!--    <bean id=""-->
-<!--    &lt;!&ndash;在web.xml中也可以配置拦截器，区别呢？&ndash;&gt;-->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/**"/>-->
-<!--            <ref bean=""-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <!--    <mvc:annotation-driven/>-->
+<!--    <mvc:default-servlet-handler/>-->
+    <context:component-scan base-package="com.wj.mysql.controller"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+
+    <!--    <bean id=""-->
+    <!--    &lt;!&ndash;在web.xml中也可以配置拦截器，区别呢？&ndash;&gt;-->
+    <!--    <mvc:interceptors>-->
+    <!--        <mvc:interceptor>-->
+    <!--            <mvc:mapping path="/**"/>-->
+    <!--            <ref bean=""-->
+    <!--        </mvc:interceptor>-->
+    <!--    </mvc:interceptors>-->
+    <!--jsp最佳是放到WEB-INF文件下，避免JSP可以通过手动输入的url被直接访问到，只有控制器才能访问。
+    支持多个view resolver。-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:suffix=".jsp"/>
+
+    <bean class="com.wj.mysql.utils.SetAlwaysUseFullPathModule"/>
 
 </beans>
