@@ -35,8 +35,9 @@
 
     <servlet-mapping>
         <servlet-name>sql-web</servlet-name>
-        <!--https://blog.csdn.net/weixin_44415997/article/details/100098081解决路径匹配不到的情况-->
-<!--        <url-pattern>/mvc/*</url-pattern>-->
+        <!--解决路径匹配不到的情况-->
+        <!--    <url-pattern>/mvc/*</url-pattern>-->
+        <!--  <url-pattern>/mvc/getbook</url-pattern>-->
         <!--第二种解决方式：直接通过添加后缀名的形式来拦截请求。该后缀名任意-->
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>

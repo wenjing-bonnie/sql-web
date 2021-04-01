@@ -10,7 +10,7 @@
 
     <!--注解驱动：自动配置最新的注解的处理器映射器和处理器适配器-->
     <!--    <mvc:annotation-driven/>-->
-<!--    <mvc:default-servlet-handler/>-->
+    <!--    <mvc:default-servlet-handler/>-->
     <context:component-scan base-package="com.wj.mysql.controller"/>
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
@@ -27,7 +27,7 @@
     支持多个view resolver。-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:suffix=".jsp"/>
-
-    <bean class="com.wj.mysql.utils.SetAlwaysUseFullPathModule"/>
+    <!--解决路径模糊匹配，页面404-->
+    <bean class="com.wj.mysql.utils.SetAlwaysUseFullPathForDispatcher"/>
 
 </beans>

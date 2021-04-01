@@ -18,7 +18,7 @@ public class BookMvcController {
     @RequestMapping(value = "/getbook")
     public ModelAndView getBook(HttpServletRequest request,
                                 HttpServletResponse response) {
-        String name;
+        //增加业务处理之后，将返回的数据传递给ModelAndView
         return new ModelAndView("/librarian/addlibrarian");
     }
 }
