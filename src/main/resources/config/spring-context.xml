@@ -17,7 +17,7 @@
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 
     <!--    <bean id=""-->
-        <!--在web.xml中也可以配置拦截器-->
+    <!--在web.xml中也可以配置拦截器-->
     <!--    <mvc:interceptors>-->
     <!--        <mvc:interceptor>-->
     <!--            <mvc:mapping path="/**"/>-->
@@ -27,7 +27,8 @@
     <!--jsp最佳是放到WEB-INF文件下，避免JSP可以通过手动输入的url被直接访问到，只有控制器才能访问。
     支持多个view resolver。-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:suffix=".jsp"/>
+          p:suffix=".jsp"
+          p:prefix="/WEB-INF/views"/>
     <!--解决路径模糊匹配，页面404-->
     <!--  <bean class="com.wj.mysql.utils.SetAlwaysUseFullPathForDispatcher"/>-->
 

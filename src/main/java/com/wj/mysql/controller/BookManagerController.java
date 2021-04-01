@@ -35,6 +35,5 @@ public class BookManagerController extends BaseHttpServlet {
         }
         System.out.println("=== 插入数据之后，数据库里的数据 === ");
         service.query();
-        SqlSession s;
     }
 }
