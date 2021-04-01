@@ -11,12 +11,13 @@
     <!--注解驱动：自动配置最新的注解的处理器映射器和处理器适配器-->
     <!--    <mvc:annotation-driven/>-->
     <!--    <mvc:default-servlet-handler/>-->
+    <!--如果要使用RequestMappingHandlerMapping这种方式，必须增加，否则无法加载对应注解的类-->
     <context:component-scan base-package="com.wj.mysql.controller"/>
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 
     <!--    <bean id=""-->
-    <!--    &lt;!&ndash;在web.xml中也可以配置拦截器，区别呢？&ndash;&gt;-->
+        <!--在web.xml中也可以配置拦截器-->
     <!--    <mvc:interceptors>-->
     <!--        <mvc:interceptor>-->
     <!--            <mvc:mapping path="/**"/>-->
@@ -28,6 +29,6 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:suffix=".jsp"/>
     <!--解决路径模糊匹配，页面404-->
-    <bean class="com.wj.mysql.utils.SetAlwaysUseFullPathForDispatcher"/>
+    <!--  <bean class="com.wj.mysql.utils.SetAlwaysUseFullPathForDispatcher"/>-->
 
 </beans>
